@@ -14,17 +14,15 @@ public class ProjectService {
     @Autowired
     private ProjectRepository repository;
 
-    public Project createProject(ProjectImp project) {
-        return null;
+    public Project createProject(Project project) {
+        return repository.save(project);
     }
 
     public List<Project> getAllProjects() {
-
         return repository.findAll();
     }
 
     public List<Project> getProjectByUser(Long userId) {
-
         return null;
     }
 
@@ -37,4 +35,7 @@ public class ProjectService {
         repository.deleteById(projectId);
     }
 
+    public Project getProjectById(Long projectId) {
+        return (Project) repository.findAllById(projectId);
+    }
 }

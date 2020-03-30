@@ -1,7 +1,11 @@
 package com.projet.korector.entity;
 
+import com.projet.korector.model.User;
+import org.springframework.boot.autoconfigure.web.ServerProperties;
+
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -15,15 +19,26 @@ public class Project implements Serializable {
     private Long id;
     private String name;
     private Float note;
-    //private User user;
+    private Date dateDepot;
     @ManyToMany(mappedBy = "projects")
     private Set<Session> sessions;
 
+    public Project() {
+
+    }
+
+    public Project(Long id, String name) {
+        this.id = id;
+        this.name = name;
+        this.sessions= new HashSet<>();
+        this.dateDepot = new Date();
+    }
 
     public Project(String name, Float note) {
         this.name = name;
         this.note = note;
         this.sessions= new HashSet<>();
+        this.dateDepot = new Date();
     }
 
     public Long getId() {
@@ -58,6 +73,13 @@ public class Project implements Serializable {
         this.sessions = sessions;
     }
 
+    public Date getDateDepot() {
+        return dateDepot;
+    }
+
+    public void setDateDepot(Date dateDepot) {
+        this.dateDepot = dateDepot;
+    }
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("Project{");
@@ -68,4 +90,7 @@ public class Project implements Serializable {
         sb.append('}');
         return sb.toString();
     }
+
+
+
 }

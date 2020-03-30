@@ -1,0 +1,59 @@
+<h4>Section : {{sectionName}}</h4>
+<h5>Liste des enseigants</h5>
+<div class="row">
+  <div class="col-md-6">
+    <button class="btn"><a class="nav-link" routerLinkActive="active" routerLink="/createTeacher"><i class="fa fa-plus-square"></i> Ajouter un enseignant </a></button>
+  </div>
+</div> <br>
+<div class="row">
+  <table class="table table-hover">
+    <thead>
+    <tr>
+      <th scope="col">N°</th>
+      <th scope="col">Nom</th>
+      <th scope="col">Prénom</th>
+      <th scope="col">Afficher</th>
+      <th scope="col">Supprimer</th>
+    </tr>
+    </thead>
+    <tbody *ngFor="let teacher of 10">
+    <tr>
+      <th scope="row">{{teacher}}</th>
+      <td></td>
+      <td></td>
+      <td><button class="btn"><a [routerLink]="['/teacher-detail/', teacher]"><i class="fa fa-eye"></i></a></button></td>
+      <td><button class="btn"><i class="fa fa-trash"></i></button></td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+
+<h5>Liste des étudiants</h5>
+<div class="row">
+  <div class="col-md-6">
+    <button class="btn"><a class="nav-link" routerLinkActive="active" routerLink="/createStudent"><i class="fa fa-plus-square"></i>  Ajouter un étudiant </a></button>
+  </div>
+</div> <br>
+<div class="row">
+  <table class="table table-hover">
+    <thead>
+    <tr>
+      <th scope="col">N°</th>
+      <th scope="col">Nom</th>
+      <th scope="col">Prénom</th>
+      <th scope="col">Afficher</th>
+      <th scope="col">Supprimer</th>
+    </tr>
+    </thead>
+    <tbody *ngFor="let student of 10">
+    <tr>
+      <th scope="row">{{student}}</th>
+      <td></td>
+      <td></td>
+      <td><button class="btn"><a [routerLink]="['/student-detail/', student]"><i class="fa fa-eye"></i></a></button></td>
+      <td><button class="btn"><i class="fa fa-trash"></i></button></td>
+    </tr>
+    </tbody>
+  </table>
+</div>
