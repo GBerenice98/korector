@@ -19,6 +19,10 @@ export class ProjectService {
     return this.http.get(`${AUTH_API}/project/${id}`);
   }
 
+  getProject(id: string): Observable<any> {
+    return this.http.get(`${AUTH_API}/getProject/${id}`);
+  }
+
   updateProject(id: number, value: any): Observable<Object> {
     return this.http.put(`${AUTH_API}/${id}`, value);
   }

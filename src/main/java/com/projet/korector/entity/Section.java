@@ -9,7 +9,9 @@ import java.util.List;
 import java.util.Set;
 
 @Entity
-@Table(name = "section")
+@Table(name = "section", uniqueConstraints = {
+        @UniqueConstraint(columnNames = "name")
+})
 public class Section implements Serializable {
 
     private static final long serialVersionUID = -2054386655979281969L;

@@ -1,15 +1,17 @@
 package com.projet.korector.entity;
 
 import com.projet.korector.model.User;
-import org.springframework.boot.autoconfigure.web.ServerProperties;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
 @Entity
+@Table(name = "projects", uniqueConstraints = {
+        @UniqueConstraint(columnNames = "url")
+}
+)
 public class Project implements Serializable {
 
     private static final long serialVersionUID = -2054386655979281969L;
@@ -18,27 +20,38 @@ public class Project implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String name;
+    private String description;
+    private String url;
     private Float note;
-    private Date dateDepot;
+    private String dateDepot;
     @ManyToMany(mappedBy = "projects")
     private Set<Session> sessions;
+
+    @OneToOne(cascade=CascadeType.ALL)
+    @JoinTable(name="user_projects",
+            joinColumns={@JoinColumn(name="project_id", referencedColumnName="id")},
+            inverseJoinColumns={@JoinColumn(name="user_id", referencedColumnName="id")})
+    private User user;
 
     public Project() {
 
     }
 
-    public Project(Long id, String name) {
+    public Project(Long id, String name, String description, String url, String date) {
         this.id = id;
         this.name = name;
+        this.description = description;
+        this.url = url;
         this.sessions= new HashSet<>();
-        this.dateDepot = new Date();
+        this.dateDepot = date;
     }
 
-    public Project(String name, Float note) {
+    public Project(String name, String description, String url, String date) {
         this.name = name;
-        this.note = note;
+        this.description = description;
+        this.url = url;
         this.sessions= new HashSet<>();
-        this.dateDepot = new Date();
+        this.dateDepot = date;
     }
 
     public Long getId() {
@@ -65,6 +78,7 @@ public class Project implements Serializable {
         this.note = note;
     }
 
+
     public Set<Session> getSessions() {
         return sessions;
     }
@@ -73,11 +87,11 @@ public class Project implements Serializable {
         this.sessions = sessions;
     }
 
-    public Date getDateDepot() {
+    public String getDateDepot() {
         return dateDepot;
     }
 
-    public void setDateDepot(Date dateDepot) {
+    public void setDateDepot(String dateDepot) {
         this.dateDepot = dateDepot;
     }
     @Override
@@ -92,5 +106,23 @@ public class Project implements Serializable {
     }
 
 
+    public User getUser() {
+        return user;
+    }
 
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
 }

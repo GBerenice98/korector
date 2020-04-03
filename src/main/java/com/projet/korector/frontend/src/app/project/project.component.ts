@@ -4,6 +4,7 @@ import {ProjectService} from '../_services/project.service';
 import {Observable} from "rxjs";
 
 import {Router} from "@angular/router";
+import {TokenStorageService} from "../_services/token-storage.service";
 
 @Component({
   selector: 'app-projet',
@@ -16,7 +17,7 @@ export class ProjectComponent implements OnInit {
   projets: Observable<Project[]>;
 
   constructor(private projetService: ProjectService,
-              private router: Router) {}
+              private router: Router, private tokenStorage: TokenStorageService) {}
 
   ngOnInit() {
     this.reloadData();
@@ -24,7 +25,8 @@ export class ProjectComponent implements OnInit {
   }
 
   reloadData() {
-    this.projets = this.projetService.getProjectList();
+    this.projets = this.projetService.getProject("T-MIAGE");
+    //this.projetService.getProjectList();
   }
 
   deleteProject(id: number) {
@@ -44,5 +46,9 @@ export class ProjectComponent implements OnInit {
 
   updateProject(id: number){
     //this.router.navigate(['update', id]);
+  }
+
+  prjectById(username:number){
+    this.projetService.getProjectById(username);
   }
 }

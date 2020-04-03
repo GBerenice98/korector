@@ -2,8 +2,11 @@ import {Session} from "./session";
 export class Project {
   id: number;
   name: string;
+  descripion: string;
+  url:string;
   note: number;
-  session: Session;
   dateDepot : string;
+  session: Session;
+
 
 }
