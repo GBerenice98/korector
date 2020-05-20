@@ -1,11 +1,10 @@
 <h3>Projets List</h3>
 <div class="row">
-  <div class="col-md-6" *ngIf="this.userRole=='ETUDIANT'">
-    <button class="btn btn-primary" (click)="submit()">Déposer Projet</button>
+  <!-- *ngIf="this.userRole=='ETUDIANT'"  -->
+  <div class="col-md-6" >
+    <button class="btn btn-primary" (click)="submit()" *ngIf="this.userRole=='ETUDIANT'">Déposer Projet</button>
   </div>
-  <div>
-    <button (click)="submitTest()" class="btn btn-danger">Test RUN<i class="fa fa-trash"></i></button>
-  </div>
+
 </div> <br>
 
 <div class="row" *ngIf="this.userRole=='ETUDIANT'">

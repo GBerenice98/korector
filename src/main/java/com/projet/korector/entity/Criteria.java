@@ -27,9 +27,9 @@ public class Criteria implements Serializable {
     @Column(name="url")
     private String url;
 
-    @JsonIgnore
-    @ManyToMany(mappedBy = "criterias",fetch = FetchType.LAZY)
-    private Set<Session> sessions = new HashSet<>();
+    //    @JsonIgnore
+    //   @ManyToMany(mappedBy = "criterias",fetch = FetchType.LAZY)
+    //  private Set<Session> sessions = new HashSet<>();
 
 //    @JsonIgnore
 //    @ManyToMany(mappedBy = "criterias",fetch = FetchType.LAZY)

@@ -356,6 +356,24 @@ console.log("Json parse" + JSON.parse(JSON.stringify(p.sonarResults)));
 
   public changeCritereType(type : string) : void { this.typeCritere=type; }
 
+  public createOneRun(p : Project) : void {
+    this.show = true;
+    this.buildName = p.name+"_"+ this.username +"_" + this.sessionId ;
+    this.buildUrl = p.url.replace(/\//g , ",");
+    console.log("Name " + this.buildName);
+    console.log("Url " + this.buildUrl);
+    this.runService.sonarQubeRun(this.buildName,this.buildUrl,this.sessionId, p.id).subscribe(data=>{
+     // data = data.json();
+     this.show = false;
+      this.sonarQubeRun = data;
+      console.log(this.sonarQubeRun);
+
+  });
+
+}
+
+
+
   public createRun() : void
   {
     this.runService.createRun(this.sessionId).subscribe( data => {
@@ -368,6 +386,8 @@ console.log("Json parse" + JSON.parse(JSON.stringify(p.sonarResults)));
       this.buildUrl = project.url.replace(/\//g , ",");
       console.log("Name " + this.buildName);
       console.log("Url " + this.buildUrl);
+        this.openValidationModal("Le projet " + p.name + "est en cours de build sur Sonarqube");
+
       this.runService.sonarQubeRun(this.buildName,this.buildUrl,this.sessionId, project.id).subscribe(data=>{
        // data = data.json();
        this.show = false;
@@ -375,12 +395,11 @@ console.log("Json parse" + JSON.parse(JSON.stringify(p.sonarResults)));
         console.log(this.sonarQubeRun);
        
       });;
-    //  this.openValidationModal("Run OK" + this.sonarQubeRun);
     console.log("Data from run" + this.sonarQubeRun)
 
     });
 
-  }
+  } 
 
   public exportCSV(runId : number) : void
   {

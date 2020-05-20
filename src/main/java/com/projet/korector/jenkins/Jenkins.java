@@ -144,6 +144,7 @@ public class Jenkins implements JenkinsService {
         try {
             job = jenkinsServer.getJob(jobName);
             BuildWithDetails build = job.getLastBuild().details();
+
             return build.getConsoleOutputHtml();
         } catch (IOException e) {
             e.printStackTrace();

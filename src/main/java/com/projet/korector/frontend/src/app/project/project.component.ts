@@ -112,7 +112,7 @@ export class ProjectComponent implements OnInit {
   public submit() : void 
   {
     this.hideView ? this.hideView=false : this.hideView=true;
-    //this.sessionService.addProjectToSession(11,3).subscribe(data=> { console.log("data",data)});
+   // this.sessionService.addProjectToSession(13,3).subscribe(data=> { console.log("data",data)});
   }
 
   public submitProject(p:Project,s:Session) : void{
@@ -140,8 +140,10 @@ export class ProjectComponent implements OnInit {
     {
       if(this.compareHour(heureDepot,currentHour) == 0)
       {
-        this.sessionService.addProjectToSession(s.id,p.id);
-        this.openValidationModal("Votre projet : "+p.name+" a bien été déposé dans la session : "+s.name)
+        this.sessionService.addProjectToSession(p.id,s.id).subscribe(data=> { console.log("data",data)});
+        this.openValidationModal("Votre projet : "+p.name+" a bien été déposé dans la session : "+s.name
+
+        )
       }
       else this.openValidationModal("Oups ! Le délai est passé, contactez votre professeur.");
     }
