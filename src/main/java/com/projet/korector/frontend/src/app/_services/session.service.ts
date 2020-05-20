@@ -115,12 +115,11 @@ export class SessionService {
     return this.http.get<Array<Session>>(routeQuery);
   }
 
-  public exportCSV(runId : number) : Observable<any>
+  public exportCSV(runId : number)
   {
-    let headers = new HttpHeaders();
-    headers = headers.set('Accept', 'application/csv');
+    const headers = new HttpHeaders({Accept: 'text/csv'});
     let routeQuery=this.url+"/exportCSV/"+runId;
-    return this.http.get<any>(routeQuery,{headers: headers});
+    return this.http.get(routeQuery,{headers,responseType:'arraybuffer'});
   }
 
 }

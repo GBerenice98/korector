@@ -403,12 +403,13 @@ console.log("Json parse" + JSON.parse(JSON.stringify(p.sonarResults)));
 
   public exportCSV(runId : number) : void
   {
-    this.sessionService.exportCSV(runId).subscribe( response => {
+    this.sessionService.exportCSV(runId).subscribe( data => {
       let date = new Date();
       this.datepipe.transform(date, 'ddMMyyyyHHmmss');
-      var blob = new Blob([response], {type: 'text/csv' })
+      let blob = new Blob([data], {type: 'text/csv' });
+      let url =URL.createObjectURL(blob);
       const link = document.createElement('a');
-      link.href = window.URL.createObjectURL(new Blob([response], {type: 'text/csv'}));
+      link.href = url;
       link.download = `run_${date}.csv`;
       link.click();
     });

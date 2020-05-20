@@ -260,24 +260,17 @@ public class SessionService {
 
     public void exportCSV(Long runId, HttpServletResponse response) {
 
-        SimpleDateFormat formater = new SimpleDateFormat("yyyyMMddHHmmss");
-        Date date = new Date();
-
-        //set file name and content type
-        String filename = "run_"+date+".csv";
-
         response.setContentType("text/csv");
-        response.setHeader(HttpHeaders.CONTENT_DISPOSITION,
-                "attachment; filename=\"" + filename + "\"");
 
         //create a csv writer
         Run run = this.runRepository.findById(runId).get();
 
         List<Project> sessionsProject = new ArrayList<Project>(this.getSessionProjects(run.getSession().getId()));
+        List<SessionCritere> sessionCriteres = new ArrayList<SessionCritere>(this.getSessionCriteres(run.getSession().getId()));
 
         try (
                 CSVPrinter csvPrinter = new CSVPrinter(response.getWriter(), CSVFormat.DEFAULT
-                        .withHeader("ID", "FirstName", "LastName"));
+                        .withHeader("Id", "Name","Note","Url"));
         ) {
             for (Project project : sessionsProject) {
                 List<? extends Serializable> data = Arrays.asList(
@@ -288,6 +281,21 @@ public class SessionService {
                 );
                 csvPrinter.printRecord(data);
             }
+
+            csvPrinter.printRecord("\n");
+            csvPrinter.printRecord("Détails Session Criteres");
+            csvPrinter.printRecord("Id","Name","Height","Seuil","Value");
+            for (SessionCritere critere : sessionCriteres) {
+                List<? extends Serializable> data = Arrays.asList(
+                        critere.getId(),
+                        critere.getName(),
+                        critere.getHeight(),
+                        critere.getSeuil(),
+                        critere.getValue()
+                );
+                csvPrinter.printRecord(data);
+            }
+
             csvPrinter.flush();
         } catch (Exception e) {
             System.out.println("Writing CSV error!");

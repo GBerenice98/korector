@@ -130,7 +130,6 @@
     <div class="col-md-6">
       <button class="btn btn-primary" (click)="createRun()"  [disabled]="show" *ngIf="!runExitsForSession" >Run</button>
       <button class="btn btn-primary" (click)="createRun()"  [disabled]="show" *ngIf="runExitsForSession">Relancer</button>
-
     </div>
   </div>
   <br><br>
@@ -140,21 +139,18 @@
       <thead>
       <tr>
         <th scope="col">Nom Projet</th>
-        <th scope="col">Url</th>
-        <th scope="col">Supprimé</th>  
+        <th scope="col">Url</th>  
         <th scope="col">Last Build</th>  
         <th scope="col">Sonar Results</th>  
         <th scope="col">Note</th>  
-        <th scope="col"> Analyse </th>  
-
-
+        <th scope="col"> Analyse </th> 
+        <th scope="col">Supprimé</th> 
       </tr>
       </thead>
       <tbody *ngFor="let project of sessionProjects">
       <tr>
         <td>{{project.name}}</td>
         <td>{{project.url}}</td>
-        <td><button class="btn" (click)="deleteToProjectList(project)"><i class="fa fa-trash"></i></button></td> 
         <td> LastBuild : {{project && project.sonarResults &&  project.sonarResults.date}}</td>
         <td>
           Bugs :{{project && project.sonarResults &&  project.sonarResults.bugs}}<br>
@@ -163,30 +159,27 @@
           Coverage : {{project && project.sonarResults &&  project.sonarResults.Coverage}}<br>
           Duplications : {{project && project.sonarResults &&  project.sonarResults.dups}} <br>
           Duplications blockes :{{project && project.sonarResults &&  project.sonarResults.dups_block}}
-
-
-
         </td>
-        <td> {{project && project.sonarResults &&  project.sonarResults.note_finale}}  </td>
-
-        <td>         
-              <ng-container *ngIf="show">
-
-              <div class="progress-loader" >
-                    <img src="assets/img/Spinner-1.4s-64px.svg">
-                    <span class="loading-message">Please wait...</span>
-              </div>
-            </ng-container>
-
+        <td> {{project && project.sonarResults &&  project.sonarResults.note_finale}}  
+          <!--
         </td>
-
+        <td>          my-loader.component.html -->
+          <ng-container *ngIf="show">
+            <div class="progress-loader" >
+                  <img src="assets/img/Spinner-1.4s-64px.svg">
+                  <span class="loading-message">Please wait...</span>
+            </div>
+          </ng-container>
+        </td>
         <td>
-          <div class="col-md-6">
-            <button class="btn btn-primary" (click)="createRun()"  [disabled]="show" *ngIf="runExitsForSessionProject" >Run</button>
-            <button class="btn btn-primary" (click)="createRun()"  [disabled]="show" *ngIf="!runExitsForSessionProject">Relancer</button>
-      
+          <div class="col-md-6" *ngIf="runExitsForSessionProject">
+            <button class="btn btn-primary" (click)="createRun()"  [disabled]="show">Run</button>
           </div>
+          <div class="col-md-6" *ngIf="!runExitsForSessionProject">
+            <button class="btn" (click)="createRun()"  [disabled]="show" ><i class="fa fa-refresh"></i></button>
+          </div>            
         </td>
+        <td><button class="btn" (click)="deleteToProjectList(project)"><i class="fa fa-trash"></i></button></td> 
       </tr>
       </tbody>
     </table>

@@ -2,7 +2,7 @@ spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/korectordb?
     username: postgres
-    password: Database20
+    password: root
 
   jpa:
     show-sql: true
