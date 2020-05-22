@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { TokenStorageService } from '../_services/token-storage.service';
-import {User} from '../classes/user';
 
 @Component({
   selector: 'app-nav',
@@ -11,25 +10,27 @@ export class NavComponent implements OnInit {
   private roles: string[];
   isLoggedIn = false;
   showAdminBoard = false;
+  showStudentBoard = false;
   showModeratorBoard = false;
-  user: User;
+  username: string;
   constructor(private tokenStorageService: TokenStorageService) { }
 
   ngOnInit(){
     this.isLoggedIn = !!this.tokenStorageService.getToken();
-    this.user = this.tokenStorageService.getUser();
+
     if (this.isLoggedIn) {
       const user = this.tokenStorageService.getUser();
-     // alert("Connected");
-      //alert(user);
-
-     // this.roles = user.roles;
-     this.showAdminBoard = this.roles.includes('ROLE_ADMIN');
+      this.roles = user.roles;
+      this.showAdminBoard = this.roles.includes('ROLE_ADMIN');
       console.log("Nav bar: showAdminBoard = " + this.showAdminBoard);
       this.showModeratorBoard = this.roles.includes('ROLE_ENSEIGNANT');
-      console.log("Nav bar: roles = " + this.roles); 
-
-    
+      console.log("Nav bar: roles = " + this.roles);
+      if(!this.showModeratorBoard && !this.showAdminBoard){
+        this.showStudentBoard = true;
+      }
+      console.log("Nav bar: showStudentBoard = " + this.showStudentBoard);
+      this.username = user.username;
+      console.log("User name  = " + this.username);
 
   }
 }

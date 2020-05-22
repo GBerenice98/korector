@@ -1,27 +1,27 @@
 <h1>Create Criteria</h1>
 <div [hidden]="submitted" style="width: 300px;" class="createCriteria">
-  <form (ngSubmit)="onSubmit()" #f="ngForm">
+  <form  #criteriaForm="ngForm"  (ngSubmit)='criteriaForm.form.valid && onSubmit(criteriaForm)' novalidate >
     <div class="form-group">
       <label for="name">Name</label>
-      <input type="text" class="form-control" id="name" required [(ngModel)]="criteria.name" name="name" #name="ngModel">
-    </div>
-    <div class="alert-danger" *ngIf="f.submitted && name.invalid">
-      <div *ngIf="name.errors.required">Name is required</div>
-      <div *ngIf="name.errors.exists">
-        Criteria Name already exists
+      <input type="text" class="form-control" id="name"  [(ngModel)]="criteria.name" name="name" required #name="ngModel">
+      <div
+        class="alert alert-danger"
+        role="alert"
+        *ngIf="criteriaForm.submitted && name.invalid"
+      >
+        Name is required!
       </div>
     </div>
-
     <div class="form-group">
       <label for="type">Type</label>
-        <select id="type" class="form-control" (change)="verifyInput('url')" required >
+        <select id="type" class="form-control" (change)="verifyInput('url')"  >
           <option (click)="changeCriteriaType('Dynamique')" value="Dynamique">Dynamique</option>
           <option  (click)="changeCriteriaType('Statique')" value="Statique">Statique</option>
         </select>
     </div>
     <div class="form-group">
       <label for="url">URL</label>
-      <input type="text"  class="form-control" id="url" disabled="false" required [(ngModel)]="criteria.url" name="url" >
+      <input type="text"  class="form-control" id="url" disabled="false" [(ngModel)]="criteria.url" name="url" >
     </div>
 
     <button type="submit" class="btn btn-success">Submit</button>
@@ -30,7 +30,7 @@
 
 
 <div [hidden]="!submitted">
-  <h4>You submitted successfully!</h4>
+  <h4>{{result}}</h4>
   <button class="btn btn-success" (click)="list()"> Back to criteria list!</button>
 </div>
 

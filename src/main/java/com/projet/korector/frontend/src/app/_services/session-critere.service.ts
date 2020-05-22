@@ -19,9 +19,9 @@ export class SessionCritereService {
     return this.http.post<SessionCritere>(routeQuery,sessionCritere);
   }
 
-  public updateSessionCritere(id:number,height:number,seuil:number) : Observable<any>
+  public updateSessionCritere(id:number,height:number,seuil:number, value:number) : Observable<any>
   {
-    const routeQuery=this.url+"/updateSessionCritere/"+id+"/"+height+"/"+seuil;
+    const routeQuery=this.url+"/updateSessionCritere/"+id+"/"+height+"/"+seuil+"/"+value;
     return this.http.get<any>(routeQuery); 
   }
 

@@ -9,7 +9,7 @@ import java.util.Set;
 
 
 @Entity
-@Table(name = "Criteria")
+@Table(name = "Criteria" , uniqueConstraints = {@UniqueConstraint(columnNames ="name")})
 public class Criteria implements Serializable {
 
     private static final long serialVersionUID = -2054386655979281969L;
@@ -27,9 +27,6 @@ public class Criteria implements Serializable {
     @Column(name="url")
     private String url;
 
-//    @JsonIgnore
-//    @ManyToMany(mappedBy = "criterias",fetch = FetchType.LAZY)
-//    private Set<Session> sessions = new HashSet<>();
 
     public Criteria( String name, String type, String url) {
         this.name = name;
@@ -73,15 +70,6 @@ public class Criteria implements Serializable {
         this.url = url;
     }
 
-//   // @JsonIgnore
-//    public Set<Session> getSessions() {
-//        return sessions;
-//    }
-//
-//   // @JsonIgnore
-//    public void setSessions(Set<Session> sessions) {
-//        this.sessions = sessions;
-//    }
 
     @Override
     public String toString() {

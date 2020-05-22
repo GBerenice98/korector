@@ -28,9 +28,9 @@
             <tr>
               <td>{{sessionCritere.name}}</td>
               <td><input name="sessionCritereHeight_{{sessionCritere.id}}" type="text" value="{{sessionCritere.height}}" size="3">%</td>
-              <td *ngIf="this.userRole!=='ETUDIANT'"><input name="sessionCritereSeuil_{{sessionCritere.id}}" type="text" value="{{sessionCritere.seuil}}" size="3">%</td>
+              <td *ngIf="this.userRole!=='ETUDIANT'"><input name="sessionCritereSeuil_{{sessionCritere.id}}" type="text" value="{{sessionCritere.seuil}}" size="3"></td>
               <td *ngIf="sessionCritere.type=='Statique'">{{sessionCritere.value}}</td>
-              <td *ngIf="sessionCritere.type=='Dynamique'"><input name="sessionCritereValue_{{sessionCritere.id}}" type="text" value="{{sessionCritere.value}}" size="3">%</td>
+              <td *ngIf="sessionCritere.type=='Dynamique'"><input name="sessionCritereValue_{{sessionCritere.id}}" type="text" value="{{sessionCritere.value}}" size="3"></td>
               <td><button class="btn" (click)="deleteSessionCriteriaFromSelectedList(sessionCritere)"><i class="fa fa-trash"></i></button></td>
             </tr>          
             </tbody>

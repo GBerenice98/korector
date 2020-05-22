@@ -1,9 +1,12 @@
 package com.projet.korector.controller;
 
 import com.projet.korector.entity.Role;
+import com.projet.korector.entity.Section;
 import com.projet.korector.entity.User;
 import com.projet.korector.payload.response.StatistiqueResponse;
+import com.projet.korector.repository.SectionRepository;
 import com.projet.korector.repository.UserRepository;
+import com.projet.korector.services.SectionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -20,6 +23,8 @@ import java.util.List;
 public class RessourceController {
     @Autowired
     UserRepository userRepository;
+    @Autowired
+    SectionRepository sectionRepository;
 
     @GetMapping("/all")
     public String allAccess() {
@@ -49,10 +54,12 @@ public class RessourceController {
     public ResponseEntity<?> adminStatistique() {
         List<User> allUsers = userRepository.findAll();
         System.out.println("Number of users : " + allUsers.size());
+        List<Section> sections = sectionRepository.findAll();
 
         int nb_students = 0;
         int nb_profs = 0;
-        int nb_classes = 0;
+        int nb_classes = sections.size();
+        System.out.println("count Sections" +nb_classes);
 
         for(User user : allUsers){
             System.out.println(user.getRoles().size());

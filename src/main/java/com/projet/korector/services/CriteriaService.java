@@ -22,21 +22,21 @@ public class CriteriaService {
     private CriteriaRepository criteriaRepository;
 
 
-    public Criteria createCriteria(Criteria criteriaImp) throws ResourceAlreadyExistsException {
+    public String createCriteria(Criteria criteriaImp) {
+        String  response ="ERROR !!";
         if(criteriaRepository.existsByName(criteriaImp.getName()))  {
-           throw new ResourceAlreadyExistsException("Resource already exist");
+            response = "This Criteria name already exist  !";
+            System.out.println(response);
         }else {
-            Criteria criteria= new Criteria();
             if (criteriaImp.getType().equals("Statique")) {
-
-                criteria = criteriaRepository.save(new Criteria(criteriaImp.getName(), criteriaImp.getType(), criteriaImp.getUrl()));
+                criteriaRepository.save(new Criteria(criteriaImp.getName(), criteriaImp.getType(), criteriaImp.getUrl()));
             } else if (criteriaImp.getType().equals("Dynamique")) {
-                criteria = criteriaRepository.save(new Criteria(criteriaImp.getName(), criteriaImp.getType(), ""));
-
+                criteriaRepository.save(new Criteria(criteriaImp.getName(), criteriaImp.getType(), ""));
             }
-            System.out.println("L'ajout du critere à été effectué avec succès!");
-            return criteria;
+            response = "The criteria is created successfully !";
+            System.out.println(response);
         }
+        return  response;
     }
 
     public ResponseEntity<Criteria> updateCriteria(Long id, Criteria criteria)
@@ -48,10 +48,10 @@ public class CriteriaService {
             _criteria.setName(criteria.getName());
             _criteria.setType(criteria.getType());
             _criteria.setUrl(criteria.getUrl());
-            System.out.println("La mise à jours du critère a bien été prise en compte!");
+            System.out.println("The criteria is updated successfully !");
             return new ResponseEntity<>(criteriaRepository.save(_criteria), HttpStatus.OK);
         } else {
-            System.out.println("Erreur lors de la mise à jours du critère !");
+            System.out.println("Error the criteria is not found!");
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
@@ -65,7 +65,7 @@ public class CriteriaService {
     public ResponseEntity<String> deleteCriteria(Long id)
     {
         criteriaRepository.deleteById(id);
-        return  new ResponseEntity<>("Le critère a été supprimé avec succès",HttpStatus.OK);
+        return  new ResponseEntity<>("The criteria is deleted successfully !",HttpStatus.OK);
     }
 
     public ResponseEntity<Criteria> getCriteriaById(Long id) throws ResourceNotFoundException {

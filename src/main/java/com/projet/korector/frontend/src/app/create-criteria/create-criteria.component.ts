@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {Criteria} from "../classes/criteria";
 import {CriteriaService} from "../_services/criteria.service"
 import {ActivatedRoute, Router} from "@angular/router";
+import {NgForm} from "@angular/forms";
+import {HttpErrorResponse} from "@angular/common/http";
 
 // @ts-ignore
 @Component({
@@ -12,7 +14,9 @@ import {ActivatedRoute, Router} from "@angular/router";
 export class CreateCriteriaComponent implements OnInit {
 
   criteria: Criteria = new Criteria();
+  result: any;
   submitted =  false;
+  errorName= false;
   constructor(private  criteriaService : CriteriaService,private router :Router, private  route: ActivatedRoute ) { }
 
   ngOnInit(): void {
@@ -23,20 +27,24 @@ export class CreateCriteriaComponent implements OnInit {
     this.criteria = new Criteria();
   }
 
-  save() {
+  save(criteriaForm: NgForm) {
+    this.errorName = false;
+    if(criteriaForm.controls.name.value ==''){
+      this.errorName = true;
+    }
     this.criteria= new Criteria();
     this.criteria.name= (document.getElementById("name") as HTMLInputElement).value;
     this.criteria.type =(document.getElementById("type") as HTMLInputElement).value;
     this.criteria.url=(document.getElementById("url") as HTMLInputElement).value
 
     this.criteriaService.createCriteria(this.criteria).subscribe(
-      data=> console.log(data),
-      error => console.log(error)
+      (data)=> this.result = data,
+
     );
   }
-  onSubmit() {
+  onSubmit(criteriaForm: NgForm) {
     this.submitted = true;
-    this.save();
+    this.save(criteriaForm);
   }
 
   changeCriteriaType(type: string) {

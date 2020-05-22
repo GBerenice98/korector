@@ -7,7 +7,7 @@ import { Section} from '../classes/section';
 const API_URL = 'http://localhost:8085/api/';
 const httpOptions = {
   headers: new HttpHeaders(
-  { 
+  {
      'Content-Type': 'application/json'
   })
 }
@@ -26,15 +26,15 @@ user : User ;
    }
   findAllStudent() : Observable <User[]> {
     return this.http.get<User[]>(API_URL  + 'user/findAllStudent',httpOptions);
-  
+
   }
   findAllProf() : Observable <User[]> {
     return this.http.get<User[]>(API_URL  + 'user/findAllProf',httpOptions);
-  
+
   }
-  getAllSections(): Observable <String[]> {
-    return this.http.get<String[]>(API_URL  + 'ressource/allSections',httpOptions);
-  
+  getAllSections(): Observable<Section[]> {
+    console.log("getAllSections : ");
+    return this.http.get<Section[]>(API_URL+"allSections",httpOptions);
   }
 
   public deleteUser(userId : Number) : Observable<any>{
@@ -43,7 +43,7 @@ user : User ;
 
     return this.http.delete<any>(API_URL  + 'user/deleteUser/' + userId );
   }
-  
-  
-  
+
+
+
 }

@@ -2,7 +2,6 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {Section} from "../classes/section";
-import {Session} from "../classes/session";
 import {environment} from "../../environments/environment";
 
 

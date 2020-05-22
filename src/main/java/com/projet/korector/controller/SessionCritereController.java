@@ -29,10 +29,10 @@ public class SessionCritereController {
     }
 
     @GetMapping("/all")
-    @RequestMapping(value = "/updateSessionCritere/{id}/{height}/{seuil}", method = RequestMethod.GET)
-    public void updateSessionCritere(@PathVariable("id") Long id,@PathVariable("height") Long height,@PathVariable("seuil") Long seuil)
+    @RequestMapping(value = "/updateSessionCritere/{id}/{height}/{seuil}/{value}", method = RequestMethod.GET)
+    public void updateSessionCritere(@PathVariable("id") Long id,@PathVariable("height") Long height,@PathVariable("seuil") Long seuil,@PathVariable("value") Float value)
     {
-         sessionCritereService.updateSessionCritere(id,height,seuil);
+         sessionCritereService.updateSessionCritere(id,height,seuil,value);
     }
 
     @GetMapping("/all")

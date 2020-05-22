@@ -27,6 +27,10 @@ export class ProjetDetailComponent implements OnInit {
       }, error => console.log(error));
   }
 
+  reload(){
+    this.router.navigate(['projet-detail', this.projectId]);
+  }
+
 
 
 }

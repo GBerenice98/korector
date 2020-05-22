@@ -21,7 +21,7 @@ public class CriteriaController {
     private CriteriaService service;
 
     @PostMapping("/createCriteria")
-    public Criteria createCriteria(@RequestBody Criteria criteria) throws ResourceAlreadyExistsException
+    public String createCriteria(@RequestBody Criteria criteria)
     {
         return service.createCriteria(criteria);
     }

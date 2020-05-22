@@ -42,15 +42,14 @@ public class SessionCritereService {
         return sessionCritereImp;
     }
 
-    public void updateSessionCritere(Long id,Long height,Long seuil)
+    public void updateSessionCritere(Long id,Long height,Long seuil,Float value)
     {
-        log.info("SessionCritereImpl de update : "+id+","+height+","+seuil);
-
-        //Session session = sessionRepository.findById(sessionCritereImp.getSessionId()).get();
+        log.info("SessionCritereImpl de update : "+id+","+height+","+seuil+","+value);
 
         SessionCritere sessionCritere= sessionCritereRepository.findById(id).get();
         sessionCritere.setHeight(height);
         sessionCritere.setSeuil(seuil);
+        sessionCritere.setValue(value);
 
         this.sessionCritereRepository.save(sessionCritere);
     }

@@ -51,7 +51,7 @@ export class CreateSectionComponent  implements OnInit {
       resp.subscribe((data) => this.result = data);
       console.log('Résultat :', this.section);
       this.submitted = true;
-      this.gotoList();
+
     }
 
 

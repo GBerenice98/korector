@@ -1,9 +1,7 @@
 package com.projet.korector;
 
-import com.projet.korector.entity.AuthProvider;
-import com.projet.korector.entity.ERole;
-import com.projet.korector.entity.Role;
-import com.projet.korector.entity.User;
+import com.projet.korector.entity.*;
+import com.projet.korector.repository.CriteriaRepository;
 import com.projet.korector.repository.RoleRepository;
 import com.projet.korector.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +22,8 @@ public class DbInitializer implements CommandLineRunner {
     @Autowired
     RoleRepository roleRepository;
     @Autowired
+    CriteriaRepository criteriaRepository;
+    @Autowired
     PasswordEncoder encoder;
 
 
@@ -32,6 +32,7 @@ public class DbInitializer implements CommandLineRunner {
         System.out.println("DB initializes...");
         List<Role> roles = roleRepository.findAll();
         List<User> users = userRepository.findAll();
+        List<Criteria> criteria = criteriaRepository.findAll();
 
         if(roles.isEmpty()){
             roleRepository.save(new Role(ERole.ROLE_ETUDIANT));
@@ -39,6 +40,15 @@ public class DbInitializer implements CommandLineRunner {
             roleRepository.save(new Role(ERole.ROLE_ADMIN));
             System.out.println("--- Roles initialized");
 
+        }
+        if(criteria.isEmpty()) {
+            criteriaRepository.save(new Criteria("Quality code","Statique",""));
+            criteriaRepository.save(new Criteria("Reliability","Statique",""));
+            criteriaRepository.save(new Criteria("Security","Statique",""));
+            criteriaRepository.save(new Criteria("Maintainability (Code smell)","Statique",""));
+            criteriaRepository.save(new Criteria("Coverage","Statique",""));
+            criteriaRepository.save(new Criteria("Duplication","Statique",""));
+            System.out.println("--- Criteria initialized");
         }
 
         if(users.isEmpty()){

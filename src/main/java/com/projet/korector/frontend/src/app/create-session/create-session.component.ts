@@ -39,6 +39,7 @@ export class CreateSessionComponent implements OnInit {
               private http: HttpClient, 
               private tokenStorage: TokenStorageService) {
     this.typeSession='normal';
+    this.nameSession="";
   }
 
   ngOnInit(): void {
@@ -83,13 +84,21 @@ export class CreateSessionComponent implements OnInit {
     createSession.projects=selectedProjectIds;
         
     console.log("session à créer  : ", createSession);
-    this.sessionService.createSession(createSession).subscribe(data =>{
-      if(data.id!=null) 
-      {
-        this.router.navigate(['/ajout-sessionCritere/'+data.id]);
-      }
-      else this.openValidationModal("Une erreur est survenue. Veuillez contacter le support.");
-    });      
+    console.log("namesession",this.nameSession);
+    if(this.nameSession=="")
+    {
+      this.openValidationModal("Vous devez donner un nom à votre Session");
+    }
+    else 
+    {
+      this.sessionService.createSession(createSession).subscribe(data =>{
+        if(data.id!=null) 
+        {
+          this.router.navigate(['/ajout-sessionCritere/'+data.id]);
+        }
+        else this.openValidationModal("Une erreur est survenue. Veuillez contacter le support.");
+      });    
+    }
   }
 
   public addProjetToSelectedProject(p : Project) : void{
