@@ -42,12 +42,12 @@ public class DbInitializer implements CommandLineRunner {
 
         }
         if(criteria.isEmpty()) {
-            criteriaRepository.save(new Criteria("Quality code","Statique",""));
-            criteriaRepository.save(new Criteria("Reliability","Statique",""));
-            criteriaRepository.save(new Criteria("Security","Statique",""));
-            criteriaRepository.save(new Criteria("Maintainability (Code smell)","Statique",""));
-            criteriaRepository.save(new Criteria("Coverage","Statique",""));
-            criteriaRepository.save(new Criteria("Duplication","Statique",""));
+            criteriaRepository.save(new Criteria("nombre de bugs","Statique",""));
+            criteriaRepository.save(new Criteria("vulnérabilités","Statique",""));
+            criteriaRepository.save(new Criteria("debt","Statique",""));
+            criteriaRepository.save(new Criteria("code smells","Statique",""));
+            criteriaRepository.save(new Criteria("duplications","Statique",""));
+            criteriaRepository.save(new Criteria("blocs dupliqués","Statique",""));
             System.out.println("--- Criteria initialized");
         }
 
