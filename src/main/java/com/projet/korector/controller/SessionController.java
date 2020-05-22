@@ -170,9 +170,9 @@ public class SessionController {
     }
 
     @GetMapping("/all")
-    @RequestMapping(value = "/exportCSV/{runId}", method = RequestMethod.GET)
-    public void exportCSV(@PathVariable("runId") Long runId,HttpServletResponse response) {
-        service.exportCSV(runId,response);
+    @RequestMapping(value = "/exportCSV/{runId}/{sessionId}", method = RequestMethod.GET)
+    public void exportCSV(@PathVariable("runId") Long runId,HttpServletResponse response, @PathVariable ("sessionId") Long sessionId) {
+        service.exportCSV(runId,response,sessionId);
     }
 
 }

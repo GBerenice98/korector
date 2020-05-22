@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { Observable } from 'rxjs';
 
 
 const httpOptions = {
@@ -17,10 +18,17 @@ export class JenkinsService {
   constructor(private http: HttpClient) { }
 
 
-public runProject (buildName : Number , urlName : String, sessionId : Number, projectId : Number ){
+public waitForBuild ( jobName: String ) : Observable<boolean>{
 
-  console.log ("URL " + this.http.post(API_URL + 'build/' + buildName + "/" +urlName , httpOptions) );
-  return this.http.post(API_URL + 'build/' + buildName + "/" +urlName + "/" + sessionId + "/" + projectId , httpOptions);
+  console.log ("URL " + API_URL + 'waitBuild/' + jobName, httpOptions) ;
+  return this.http.get<boolean>(API_URL  + 'waitBuild/' + jobName , httpOptions);
 
 }
+public getConsoleOutput( jobName: string ): Observable<String>{
+
+console.log ("URL " + API_URL + 'getOutput/' + jobName, httpOptions) ;
+return this.http.get<string>(API_URL  + 'getOutput/' + jobName , { responseType: 'text' });
 }
+
+}
+

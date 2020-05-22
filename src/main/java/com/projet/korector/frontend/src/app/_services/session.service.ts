@@ -115,10 +115,10 @@ export class SessionService {
     return this.http.get<Array<Session>>(routeQuery);
   }
 
-  public exportCSV(runId : number)
+  public exportCSV(runId : number, sessionId : number)
   {
     const headers = new HttpHeaders({Accept: 'text/csv'});
-    let routeQuery=this.url+"/exportCSV/"+runId;
+    let routeQuery=this.url+"/exportCSV/"+runId+"/"+sessionId;
     return this.http.get(routeQuery,{headers,responseType:'arraybuffer'});
   }
 

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TokenStorageService } from '../_services/token-storage.service';
+import {User} from '../classes/user';
 
 @Component({
   selector: 'app-nav',
@@ -11,12 +12,12 @@ export class NavComponent implements OnInit {
   isLoggedIn = false;
   showAdminBoard = false;
   showModeratorBoard = false;
-  username: string;
+  user: User;
   constructor(private tokenStorageService: TokenStorageService) { }
 
   ngOnInit(){
     this.isLoggedIn = !!this.tokenStorageService.getToken();
-    
+    this.user = this.tokenStorageService.getUser();
     if (this.isLoggedIn) {
       const user = this.tokenStorageService.getUser();
      // alert("Connected");
@@ -27,13 +28,8 @@ export class NavComponent implements OnInit {
       console.log("Nav bar: showAdminBoard = " + this.showAdminBoard);
       this.showModeratorBoard = this.roles.includes('ROLE_ENSEIGNANT');
       console.log("Nav bar: roles = " + this.roles); 
-     // alert("username avt");
 
-     this.username = user.username;
-      // this.username = 'Awadiagne97';
-      // alert("username");
-
-      console.log("User name  = " + this.username);
+    
 
   }
 }

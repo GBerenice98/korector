@@ -42,28 +42,12 @@ public class SonarResultsService {
 
     public SonarResults saveSonarResults(SonarResults sonarResults){
 
-
-      /*  Set<Project> projects = new HashSet<>();
-        Set<Session> sessions = new HashSet<>();
-        System.out.println("Project id dans service " + projectId);
-        System.out.println("Session id dans service " + sessionId);
-
-        Project project = projectRepository.findById(projectId).get();
-        Session session = sessionService.getSessionById(sessionId); */
-
-     //   projects.add(project);
-       // sessions.add(session);
-
-        // Create and instantiate sonarResults
-
         SonarResults sonar= new SonarResults(sonarResults.getBugs(),
                 sonarResults.getVuls(),
-                sonarResults.getDebt(),sonarResults.getSmells(),sonarResults.getCoverage(),
+                sonarResults.getDebt(),sonarResults.getSmells(),
                 sonarResults.getDups(),sonarResults.getDups_block(),sonarResults.getProjectId(),sonarResults.getSessionId(),sonarResults.getNote_finale()
                 ,sonarResults.getDate());
 
-       // sonar.setResultsSonarProjects(project);
-      //  sonar.setResultsSonarSessions(session);
         System.out.println("Sonar Results " + sonar);
         log.info("created Sonar results : "+ sonar);
 

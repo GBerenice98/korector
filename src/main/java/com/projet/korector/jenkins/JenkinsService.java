@@ -12,12 +12,14 @@ import java.util.concurrent.TimeoutException;
 public interface JenkinsService {
     boolean isJobExist(String name);
     String getJobXml(String name);
-    String buildJob(String name, boolean isCreation);
+    String buildJob(String name);
     String createJob(String name, String xml,boolean boo);
     String deleteJob(String name);
     String getResultLasBuild(String jobName);
     String getOutPut(String jobName);
-    boolean waitForBuildToComplete(long timeOut, String jobName, int numBuildExpected, boolean isCreation) throws InterruptedException, TimeoutException, IOException;
+    boolean waitForBuildToComplete(long timeOut, String jobName, int numBuildExpected) throws InterruptedException, TimeoutException, IOException;
     int getLastBuildNumber(String jobName);
     Map<String, Job> getListJob();
+   // boolean isBuilding();
+    boolean waitForBuildFinish(String jobName) throws InterruptedException, TimeoutException, IOException;
 }

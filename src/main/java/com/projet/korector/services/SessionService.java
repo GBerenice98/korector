@@ -2,6 +2,7 @@ package com.projet.korector.services;
 
 import com.projet.korector.controller.SessionController;
 import com.projet.korector.controller.UserController;
+import com.projet.korector.controller.jenkins.SonarResultsController;
 import com.projet.korector.entity.*;
 import com.projet.korector.repository.*;
 
@@ -47,6 +48,9 @@ public class SessionService {
     @Autowired
     private SessionCritereRepository sessionCritereRepository;
 
+
+    @Autowired
+    private SonarResultsController sonarResultsController;
     public ResponseEntity<Session> createSession(SessionImp sessionImp, User currentUser)
     {
         log.info("objet angular reçu pour création :"+sessionImp.toString());
@@ -258,7 +262,7 @@ public class SessionService {
 
 
 
-    public void exportCSV(Long runId, HttpServletResponse response) {
+    public void exportCSV(Long runId, HttpServletResponse response,Long sessionId) {
 
         response.setContentType("text/csv");
 
@@ -270,14 +274,23 @@ public class SessionService {
 
         try (
                 CSVPrinter csvPrinter = new CSVPrinter(response.getWriter(), CSVFormat.DEFAULT
-                        .withHeader("Id", "Name","Note","Url"));
+                        .withHeader("Id", "Name","Note","Url","Sonar Results"));
         ) {
             for (Project project : sessionsProject) {
+                  SonarResults sonarResults =  sonarResultsController.getLastResultsSonar(sessionId,project.getId());
+
                 List<? extends Serializable> data = Arrays.asList(
                         project.getId(),
                         project.getName(),
-                        project.getNote(),
-                        project.getUrl()
+                        sonarResults.getNote_finale(),
+                        project.getUrl(),
+                                "Bugs : " + sonarResults.getBugs() + " \n " +
+                                "Vuls: " + sonarResults.getVuls() + " \n " +
+                                "Smells: " + sonarResults.getSmells() + " \n " +
+                                "Debt: " + sonarResults.getDebt() + " \n " +
+                                "Duplications: " + sonarResults.getDups() + " \n " +
+                                "Block dupliques: " + sonarResults.getDups_block() + " \n "
+
                 );
                 csvPrinter.printRecord(data);
             }
