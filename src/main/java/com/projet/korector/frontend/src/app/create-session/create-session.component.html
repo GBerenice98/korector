@@ -1,27 +1,27 @@
 <div class="container-fluid">
-	<div class="row">
-		<h1>Creation d'une session</h1>
+	<div>
+		<h1>Create Session</h1>
 	</div> <br>
 
-	<div class="row">
-		<div class="card " style="text-align:left;">
+	<div>
+		<div class="card " style="text-align:center;">
 			<div class="card-header bg-info text-white">
-				Informations Session
+        Session Information
 			</div>
 			<div class="card-body">
 
 				<mat-form-field>
-					<mat-label>Nom de la Session</mat-label>
-					<input matInput [(ngModel)]="nameSession">                        
+					<mat-label>Session Name</mat-label>
+					<input matInput [(ngModel)]="nameSession">
 				</mat-form-field><br>
-				
+
 				<div class="row">
 					<div class="col-md-6">
 						<mat-form-field>
-						<mat-label>Type Session</mat-label>
+						<mat-label>Session Type</mat-label>
 						<mat-select>
 							<mat-option (click)="changeSessionType('normal')" value="Normal"> Normal </mat-option>
-							<mat-option *ngIf="this.userRole!=='ETUDIANT'" (click)="changeSessionType('depot')" value="Depot"> Depot </mat-option>
+							<mat-option *ngIf="this.userRole!=='ETUDIANT'" (click)="changeSessionType('depot')" value="Depot"> Deposit </mat-option>
 						</mat-select>
 						</mat-form-field>
 					</div>
@@ -31,7 +31,7 @@
 					<tr>
 						<td>
 							<mat-form-field *ngIf="this.typeSession=='depot'">
-								<mat-label>Date de depot (jj/mm/yyyy)</mat-label>
+								<mat-label>Deposit Date (jj/mm/yyyy)</mat-label>
 								<input id="date" name="date" matInput [matDatepicker]="picker">
 								<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
 								<mat-datepicker #picker></mat-datepicker>
@@ -39,7 +39,7 @@
 						</td>
 						<td>
 							<mat-form-field *ngIf="this.typeSession=='depot'">
-								<mat-label>Heure de depot  (HH:mm)</mat-label>
+								<mat-label>Drop off time  (HH:mm)</mat-label>
 								<input id="heure" name="heure" matInput [(ngModel)]="heureDepot">
 							</mat-form-field>
 						</td>
@@ -47,7 +47,7 @@
 				</table>
 
 				<mat-form-field >
-					<mat-label>Selectionnez un projet</mat-label>
+					<mat-label>Select project</mat-label>
 					<mat-select >
 						<mat-option *ngFor="let project of projects" [value]="project.name" (click)="addProjetToSelectedProject(project)">
 						{{project.name}}
@@ -55,19 +55,19 @@
 					</mat-select>
 				</mat-form-field>
 
-				<div class="row">
+				<div>
 					<ul style="list-style-type: none;" >
 						<li *ngFor="let project of selectedProjects" (click)="retrieveProjectToselected(project)"><i class="fa fa-minus"></i> {{project.name}}</li>
 					</ul>
-				</div>				
+				</div>
 
 			</div>
 		</div>
-	</div><br><br>	
+	</div><br><br>
 
 	<div class="row">
 		<div class="col-md-6">
-		  <button class="btn btn-primary" (click)="createSession()">Suivant</button>
+		  <button class="btn btn-primary" (click)="createSession()">Next</button>
 		</div>
 	</div> <br>
 </div>

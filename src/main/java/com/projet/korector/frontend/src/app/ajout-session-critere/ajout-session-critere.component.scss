@@ -1,0 +1,19 @@
+h1 {
+  font-weight: bold;
+  color: #62676D;
+}
+.col-md-6 {
+  flex: auto;
+  max-width: initial;
+}
+.btn-primary {
+  border-color: crimson;
+  background-color: crimson;
+}
+table {
+  margin: auto;
+}
+
+.container, .container-lg, .container-md, .container-sm, .container-xl {
+  max-width: 790px;
+}

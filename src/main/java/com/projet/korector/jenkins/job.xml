@@ -7,7 +7,7 @@
         <configVersion>2</configVersion>
         <userRemoteConfigs>
             <hudson.plugins.git.UserRemoteConfig>
-                <url>https://github.com/GBerenice98/game-of-life</url>
+                <url>https://github.com/kam/dynamics_crm</url>
                 <!-- <credentialsId>0894aed9-4937-4c08-8985-d9948f97e5eb</credentialsId> -->
             </hudson.plugins.git.UserRemoteConfig>
         </userRemoteConfigs>
@@ -28,8 +28,8 @@
     <concurrentBuild>false</concurrentBuild>
     <builders>
         <hudson.plugins.sonar.SonarRunnerBuilder plugin="sonar@2.11">
-            <properties>sonar.projectKey=game-of-life_undefined_8
- sonar.projectName=game-of-life_undefined_8
+            <properties>sonar.projectKey=dynamics_crm_undefined_37
+ sonar.projectName=dynamics_crm_undefined_37
  sonar.java.binaries =src/main/java/</properties>
             <project/>
 
