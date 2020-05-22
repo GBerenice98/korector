@@ -40,7 +40,6 @@ export class UpdateCriteriaComponent implements OnInit {
     this.submitted = true;
     this.criteria.name= (document.getElementById("name") as HTMLInputElement).value;
     this.criteria.type =(document.getElementById("type") as HTMLInputElement).value;
-    this.criteria.value =parseFloat((document.getElementById("value") as HTMLInputElement).value);
     this.criteria.url=(document.getElementById("url") as HTMLInputElement).value;
     this.service.updateCriteria(this.id,this.criteria).subscribe(
       data=> console.log(data),
