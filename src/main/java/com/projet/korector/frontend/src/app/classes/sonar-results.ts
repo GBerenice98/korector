@@ -9,8 +9,8 @@ export class SonarResults {
     dups_block : String;
     date : String;
     note_finale: Number;
-    project_id: Number;
-    session_id: Number;
+    projectId: Number;
+    sessionId: Number;
 
     constructor() {
         this.id = null;
@@ -18,12 +18,11 @@ export class SonarResults {
         this.vuls='';
         this.debt='';
         this.smells= '';
-        this.coverage= '';
         this.dups='';
         this.dups_block='';
         this.date = '';
-        this.project_id = null;
-        this.session_id= null;
+        this.projectId = null;
+        this.sessionId= null;
         this.note_finale= null;
 
       }

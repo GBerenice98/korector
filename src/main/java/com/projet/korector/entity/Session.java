@@ -19,7 +19,7 @@ public class Session implements Serializable {
     private String name;
     private String date_depot;
     private String heureDepot;
-
+private String typeSession;
     @JsonIgnore
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinTable(name="sessions_projects",
@@ -83,6 +83,13 @@ public class Session implements Serializable {
         this.heureDepot=heure;
     }
 
+    public Session(String name, String date_depot, String heureDepot, String typeSession) {
+        this.name = name;
+        this.date_depot = date_depot;
+        this.heureDepot = heureDepot;
+        this.typeSession = typeSession;
+    }
+
     public Long getId() {
         return id;
     }
@@ -113,6 +120,14 @@ public class Session implements Serializable {
 
     public void setHeureDepot(String heureDepot) {
         this.heureDepot = heureDepot;
+    }
+
+    public String getTypeSession() {
+        return typeSession;
+    }
+
+    public void setTypeSession(String typeSession) {
+        this.typeSession = typeSession;
     }
 
     @JsonIgnore
@@ -178,6 +193,8 @@ public class Session implements Serializable {
                 ", date_depot='" + date_depot + '\'' +
                 ", heureDepot='" + heureDepot + '\'' +
                 ", projects=" + projects +
+                ", type=" + typeSession +
+
                 ", sessionriteres=" + sessionCriteres +
                 ", runs=" + runs +
                 '}';

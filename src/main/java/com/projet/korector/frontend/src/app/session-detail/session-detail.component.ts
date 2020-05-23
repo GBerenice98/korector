@@ -241,9 +241,12 @@ public session_id: Number;
           c.seuil=parseInt(document.getElementsByName("sessionCritereSeuil_"+c.id)[0]["value"]);
         }
         else c.seuil=0;
-        this.sessionCritereService.updateSessionCritere(c.id,c.height,c.seuil).subscribe(data=>{ 
+        /*this.sessionCritereService.updateSessionCritere(c.id,c.height,c.seuil).subscribe(data=>{ 
          console.log("data")
-         });
+         });  */
+         this.sessionCritereService.updateSessionCritere(c.id,c.height,c.seuil,c.value).subscribe(data=>{ 
+          console.log("data")
+          });
       }         
       pourcentageTotal=pourcentageTotal+c.height;
     });
@@ -340,88 +343,6 @@ public session_id: Number;
   public changeCritereType(type : string) : void { this.typeCritere=type; }
 
 
-
-
-
-  public createRun() : void
-  {
-    /*this.runService.createRun(this.sessionId).subscribe( data => {
-      this.sessionRuns.push(data);
-    });  */
-  // console.log("Session project bis" + JSON.stringify(this.sessionProjects));
-  // JSON.parse(JSON.stringify(this.sessionProjects));
-  /*  this.firstBuildName =this.sessionProjects[0].name + "_" + this.user.username +"_" + this.sessionId;
-
-    this.firstBuildUrl = this.sessionProjects[0].url.replace(/\//g , ",");
-    console.log("Name " + this.firstBuildName);
-    console.log("Url " + this.firstBuildName);
-      this.runService.sonarQubeRun(this.firstBuildName,this.firstBuildUrl,this.sessionId, this.sessionProjects[0].id).subscribe(data=>{
-        
-        this.openValidationModal("Le projet " + this.sessionProjects[0].name + "est en cours de build sur Sonarqube" +
-        " sous le nom de" + this.firstBuildName );
-
-        // data = data.json();
-        this.show = false;
-          this.sonarQubeRun = data;
-          console.log("sONARQUBE RUN" + this.sonarQubeRun);
-          this.jenkinsService.waitForBuild(this.firstBuildName).subscribe(data =>{
-            this.buildFirstJob  = data;
-            console.log("First Project " + this.sessionProjects[0].name);
-   
-           });
-
-       });;
-   
-
-    
-
-while (this.buildFirstJob != true){ */
-
-  //console.log("les autres projets ne peuvent pas etre build  car buildFirstJob = " + this.buildFirstJob);
-
-
-
-  /*  this.sessionProjects.forEach(project => {
-     // console.log("Dans others projects build de p1 " + this.buildFirstJob);
-
-      this.show = true;
-     
-      this.buildName = project.name+"_"+ this.user.username +"_" + this.sessionId ;
-      this.buildUrl = project.url.replace(/\//g , ",");
-      console.log("Name " + this.buildName);
-      console.log("Url " + this.buildUrl);
-       if(this.index!=0){
-             console.log("Index " + this.index);
-            this.previousBuildName =this.sessionProjects[this.index-1].name + "_" + this.user.username +"_" + this.sessionId;
-            console.log("Je suis le projet name " + this.buildName + " Mon Previous build name" + this.previousBuildName);
-
-           while(this.buildPreviousJob !=true ){
-            
-
-                 this.openValidationModal("Le projet " + project.name + "est en cours de build sur Sonarqube" +
-                        " sous le nom de" + this.buildName );
-                   this.runService.sonarQubeRun(this.buildName,this.buildUrl,this.sessionId, project.id).subscribe(data=>{
-                       
-                    this.show = false;
-                   this.sonarQubeRun = data;
-                            console.log(this.sonarQubeRun);
-                          
-                          });;
-             }
-             this.jenkinsService.waitForBuild(this.previousBuildName).subscribe(data =>{
-              this.buildPreviousJob  = data;
-            }); 
-         
-    
-    }
-                  this.index++
-
-     }); 
-*/
-    
-    
- 
-  }
 
   public createOneRun(p : Project ) {
     this.show = true;

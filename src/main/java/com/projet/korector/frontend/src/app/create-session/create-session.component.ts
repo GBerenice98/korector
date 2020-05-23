@@ -31,6 +31,7 @@ export class CreateSessionComponent implements OnInit {
   public nameSession: string;
   public heureDepot : string;
   public userRole: string;
+  public typeDepot : string = "Normal";
 
   constructor(private router :Router,
               private modalService: NgbModal,
@@ -75,6 +76,7 @@ export class CreateSessionComponent implements OnInit {
     {
       dateDepot  = document.getElementsByName("date")[0]["value"];
       heureDepot  = document.getElementsByName("heure")[0]["value"];
+      this.typeDepot = "Depot"
     }
 
     let createSession = new Session(this.nameSession, dateDepot, heureDepot);
@@ -91,7 +93,7 @@ export class CreateSessionComponent implements OnInit {
     }
     else 
     {
-      this.sessionService.createSession(createSession).subscribe(data =>{
+      this.sessionService.createSession(createSession,this.typeDepot).subscribe(data =>{
         if(data.id!=null) 
         {
           this.router.navigate(['/ajout-sessionCritere/'+data.id]);

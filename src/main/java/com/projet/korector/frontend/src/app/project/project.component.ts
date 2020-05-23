@@ -114,7 +114,6 @@ export class ProjectComponent implements OnInit {
     this.hideView ? this.hideView=false : this.hideView=true;
    // this.sessionService.addProjectToSession(13,3).subscribe(data=> { console.log("data",data)});
   }
-
   public submitProject(p:Project,s:Session) : void{
 
     console.log("P : ",p,"  \n S : ",s)
@@ -138,18 +137,18 @@ export class ProjectComponent implements OnInit {
 
     if(this.compareDate(this.stringToDate(dateDepot), today) == 0)
     {
-      if(this.compareHour(heureDepot,currentHour) == 0)
-      {
-        this.sessionService.addProjectToSession(p.id,s.id).subscribe(data=> { console.log("data",data)});
-        this.openValidationModal("Votre projet : "+p.name+" a bien été déposé dans la session : "+s.name
-
-        )
-      }
-      else this.openValidationModal("Oups ! Le délai est passé, contactez votre professeur.");
+     /*if(this.compareHour(heureDepot,currentHour) == 0)
+      { */
+        this.sessionService.addProjectToSession(s.id,p.id).subscribe(data=> { console.log("data",data)});
+        this.openValidationModal("Votre projet : "+p.name+" a bien été déposé dans la session : "+s.name)
+      /*}
+      else this.openValidationModal("Oups ! Le délai est passé, contactez votre professeur."); */
     }
     else this.openValidationModal("Oups ! Le délai est passé, contactez votre professeur.");
     this.hideView=true;
   }
+
+
 
   // public formattedDate(d : Date) : string{
   //   return [d.getDate(), d.getMonth()+1, d.getFullYear()]
@@ -169,7 +168,6 @@ export class ProjectComponent implements OnInit {
     var formatedDate = new Date(dateItems[yearIndex],month,dateItems[dayIndex]);
     return formatedDate;
   }
-
   public compareDate(dateDepot : Date, dateJour : Date) : number
   {
     if(dateJour.getFullYear()<=dateDepot.getFullYear()){

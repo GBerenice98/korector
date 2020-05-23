@@ -63,7 +63,9 @@ import { DatePipe } from '@angular/common';
 import { ValidationModalComponent } from './validation-modal/validation-modal.component';
 import { AjoutSessionCritereComponent } from './ajout-session-critere/ajout-session-critere.component';
 
+
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { MesResultatsComponent } from './mes-resultats/mes-resultats.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -104,7 +106,8 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
     UpdateCriteriaGroupComponent,
     UpdateCriteriaComponent,
     ValidationModalComponent,
-    AjoutSessionCritereComponent
+    AjoutSessionCritereComponent,
+    MesResultatsComponent
   ],
   imports: [
     BrowserModule,

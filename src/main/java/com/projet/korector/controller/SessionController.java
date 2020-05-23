@@ -34,13 +34,13 @@ public class SessionController {
 
 
     @PostMapping("/all")
-    @RequestMapping(value = "/createSession", method = RequestMethod.POST,consumes = "application/json",produces = "application/json")
-    public ResponseEntity<Session> createSession(@RequestBody SessionImp sessionImp)
+    @RequestMapping(value = "/createSession/{typeSession}", method = RequestMethod.POST,consumes = "application/json",produces = "application/json")
+    public ResponseEntity<Session> createSession(@RequestBody SessionImp sessionImp, @PathVariable String typeSession)
     {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
         User currentUser = this.userController.findById(userDetails.getId());
-        return service.createSession(sessionImp,currentUser);
+        return service.createSession(sessionImp,currentUser,typeSession);
     }
 
     @PutMapping("/all")
@@ -71,13 +71,20 @@ public class SessionController {
     {
         return service.getSessionById(sessionId);
     }
-
     @GetMapping("/all")
     @RequestMapping(value = "/getSessionsDepot", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-    public Set<Session> getSessionWithDateDepotNotNull()
+    public List<Session> getSessionWithDateDepotNotNull()
     {
-        return service.getSessionWithDateDepotNotNull();
+        return service.getAllSessionDepot();
     }
+
+    @GetMapping("/all")
+    @RequestMapping(value = "/getSessionDepotByProjectId/{pId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+    public List<Session>   getSessionDepotByProjectId(@PathVariable("pId") Long pId)
+    {
+        return service.getSessionDepotByProjectId(pId);
+    }
+
 
     @GetMapping("/all")
     @RequestMapping(value = "/sessionProjects/{sessionId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -168,6 +175,10 @@ public class SessionController {
     {
         return service.getSessionRuns(sessionId);
     }
+
+
+
+
 
     @GetMapping("/all")
     @RequestMapping(value = "/exportCSV/{runId}/{sessionId}", method = RequestMethod.GET)

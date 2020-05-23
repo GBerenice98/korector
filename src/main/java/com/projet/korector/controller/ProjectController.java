@@ -47,6 +47,16 @@ public class ProjectController {
         return null;
     }
 
+    @RequestMapping(value = "/getProjectById/{projectId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+
+    public  Optional<Project> getProjectByiD(@PathVariable ("projectId") Long projectId)
+    {
+
+            return  service.getProjectById(projectId);
+
+    }
+
+
     @RequestMapping(value = "/allProjectBySession/{sessionId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Project> getProjectBySession(@PathVariable Long sessionId)
     {

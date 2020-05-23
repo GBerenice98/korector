@@ -25,9 +25,9 @@ export class SessionService {
   constructor(private http: HttpClient) {
   }
 
-  public createSession(session : Session) : Observable<Session>
+  public createSession(session : Session, type : String) : Observable<Session>
   {
-    const routeQuery=this.url+"/createSession";
+    const routeQuery=this.url+"/createSession/" + type;
     console.log("session", session)
 
     console.log("session dans service : ", session)

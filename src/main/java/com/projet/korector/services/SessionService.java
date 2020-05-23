@@ -47,15 +47,16 @@ public class SessionService {
 
     @Autowired
     private SessionCritereRepository sessionCritereRepository;
-
+    @Autowired
+    private SessionService sessionService;
 
     @Autowired
     private SonarResultsController sonarResultsController;
-    public ResponseEntity<Session> createSession(SessionImp sessionImp, User currentUser)
+    public ResponseEntity<Session> createSession(SessionImp sessionImp, User currentUser,String type)
     {
         log.info("objet angular reçu pour création :"+sessionImp.toString());
 
-        Session session = new Session(sessionImp.getName(),sessionImp.getDate_depot(),sessionImp.getHeureDepot());
+        Session session = new Session(sessionImp.getName(),sessionImp.getDate_depot(),sessionImp.getHeureDepot(),type);
 
         Set<Project> projects = new HashSet<>();
         sessionImp.getProjects().forEach(projectId-> {
@@ -109,16 +110,48 @@ public class SessionService {
         return sessionRepository.findAll().stream().filter(session -> session.getUsers().contains(currentUser)).collect(Collectors.toSet());
     }
 
-    public Set<Session> getSessionWithDateDepotNotNull()
-    {
-        Set<Session> sessions = this.sessionRepository.findAll().stream().filter(session -> !session.getDate_depot().equals("")).collect(Collectors.toSet());
-        log.info("Session- date depot not null : "+sessions);
-        return sessions;
+
+    // retourne l'ensemble des sessions dans le quel un projet se trouve
+    public List<Session> getAllSessionDepot(){
+
+        List<Session> newList = new ArrayList<>();
+        List<Session> sessions = this.sessionRepository.findAll();
+        for (Session session : sessions) {
+            System.out.println("Session globale" + session.getTypeSession());
+                String type = session.getTypeSession();
+
+            if("Depot".equalsIgnoreCase(type)){
+                System.out.println("Session depot" + session.getTypeSession());
+                newList.add(session);
+
+            }
+        }
+   return newList;
     }
+
 
     public Set<Project> getSessionProjects(Long sessionId)
     {
         return new HashSet<Project>(this.sessionRepository.findById(sessionId).get().getProjects());
+    }
+
+    public List<Session> getSessionDepotByProjectId(Long id){
+
+        List<Session> sessions=   sessionService.getAllSessionDepot();
+        List<Session> newList= new ArrayList<>();
+
+        for (Session session : sessions) {
+           Set <Project> projects =  session.getProjects();
+                    for (Project p : projects){
+                        if(p.getId() == id){
+
+                            System.out.println("Le projet " + p.getName() + "appartient a " + session.getName());
+                                newList.add(session);
+                        }
+
+                    }
+        }
+        return newList;
     }
 
 //    public Set<Criteria> getSessionCriterias(Long sessionId)
@@ -259,6 +292,7 @@ public class SessionService {
         runs.addAll(this.sessionRepository.findById(sessionId).get().getRuns());
         return runs;
     }
+
 
 
 

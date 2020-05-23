@@ -24,10 +24,10 @@ public waitForBuild ( jobName: String ) : Observable<boolean>{
   return this.http.get<boolean>(API_URL  + 'waitBuild/' + jobName , httpOptions);
 
 }
-public getConsoleOutput( jobName: string ): Observable<String>{
+public getConsoleOutput( jobName: String ): Observable<String>{
 
 console.log ("URL " + API_URL + 'getOutput/' + jobName, httpOptions) ;
-return this.http.get<string>(API_URL  + 'getOutput/' + jobName , { responseType: 'text' });
+return this.http.get(API_URL  + 'getOutput/' + jobName , { responseType: 'text' });
 }
 
 }
