@@ -34,8 +34,6 @@ public class SonarResultsController {
     @Autowired
     private SonarResultsService sonarResultsService;
 
-
-
     @Autowired
 
     private ProjectService projectService;
@@ -104,7 +102,7 @@ public class SonarResultsController {
             }
 
         }
-return results;
+        return results;
     }
 
 

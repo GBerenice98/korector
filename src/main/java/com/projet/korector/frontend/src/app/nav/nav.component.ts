@@ -33,18 +33,14 @@ export class NavComponent implements OnInit {
         console.log("Nav bar: showStudentBoard = " + this.showStudentBoard);
         console.log("Nav bar: showModBoard = " + this.showModeratorBoard);
 
-        this.username = user.username;
-        console.log("User name  = " + this.username);
-      }
-
+      this.username = user.username;
+      console.log("User name  = " + this.username);
 
   }
 }
 
 logout() {
   this.tokenStorageService.signOut();
-  console.log(window.applicationCache.CHECKING);
-  window.applicationCache.UNCACHED;
   window.location.reload();
 }
 

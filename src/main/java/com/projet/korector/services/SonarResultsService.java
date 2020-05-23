@@ -22,8 +22,7 @@ import org.slf4j.LoggerFactory;
 
 @Service
 public class SonarResultsService {
-
-
+    
     @Autowired
     private SonarResultsRepository sonarResultsRepository;
     @Autowired
@@ -57,6 +56,9 @@ public class SonarResultsService {
 
     }
 
+
+
+
     public List<SonarResults> getAllResultsBySessionProject(Long projectId, Long sessionId){
 
           List <SonarResults> sonarResults =  sonarResultsRepository.findBySessionIdAndProjectId(projectId,sessionId);
@@ -67,6 +69,8 @@ public class SonarResultsService {
         }
 
     }
+
+
     public SonarResults getLastBuildResults( Long sessionId , Long projectId){
         List <SonarResults> sonarResults =  sonarResultsRepository.findBySessionIdAndProjectId(sessionId , projectId);
         SonarResults lastResults = sonarResults.get(0);
@@ -93,79 +97,4 @@ public class SonarResultsService {
 
     }
 
-
-
-/*
-    public SonarResults getLastNote(){
-
-    } */
-
-/*
-    public ResponseEntity<SonarResults> updateResultsByProjectSession(SonarResults sonarResults,Long projectId, Long sessionId){
-        log.info("Donnes before" + sonarResults.toString() );
-       SonarResults newSonarR = new SonarResults(sonarResults.getId(),sonarResults.getBugs(),
-                sonarResults.getVuls(),
-                sonarResults.getDebt(),sonarResults.getSmells(),sonarResults.getCoverage(),
-                sonarResults.getDups(),sonarResults.getDupsBlock());
-
-        //  newSonarR.getResultsSonarProjects().add(this.projectRepository.findById(projectId).get()));
-      //  Project project = projectRepository.findById(projectId).get();
-       // Session session = sessionService.getSessionById(sessionId);
-       // newSonarR.setResultsSonarProjects(project);
-       // newSonarR.setResultsSonarSessions(session);
-        System.out.println("Donnes After" + newSonarR.toString() );
-
-        if (!sonarResultsRepository.existsById(sonarResults.getId())) {
-            return new ResponseEntity<SonarResults>(HttpStatus.NOT_FOUND);
-        }
-
-        SonarResults book =sonarResultsRepository.save(newSonarR);
-        if (book != null) {
-           // BookDTO bookDTO = mapBookToBookDTO(book);
-            return new ResponseEntity<SonarResults>(book, HttpStatus.OK);
-        }
-        return new ResponseEntity<SonarResults>(HttpStatus.NOT_MODIFIED);
-
-
-
-
-     //   return new ResponseEntity<SonarResults>(this.sonarResultsRepository.saveAndFlush(newSonarR), HttpStatus.OK);
-
-    }
-/*
-    public Long getIdByProject(Long projectId){/
-        //    this.projectRepository.findById(pr)
-        return new HashSet<Project>(this.sessionRepository.findById(sessionId).get().getProjects());
-
-        return null;
-
-    }
-    public Long getIdBySession(Long sessionId){
-        return null;
-
-    }
-
-    public SonarResults findSResultsById(Long id){
-       return sonarResultsRepository.findById(id).orElse(null);;
-    }
-} */
-
-
-   /* public void setSonarResultsProjects(Long sResultsId,Set<Project> projects)
-    {
-        Set<Project> putProjects= new HashSet<>();
-        projects.forEach(project->{
-            putProjects.add(this.projectRepository.findById(project.getId()).get());
-        });
-
-        SonarResults putSresults=this.sonarResultsRepository.findById(sResultsId).get();
-        putSresults.setResultsSonarProjects(putProjects);
-
-        putProjects.forEach(project -> {
-            project.getSo().add(putSession);
-            this.projectRepository.saveAndFlush(project);
-        });
-
-        this.sessionRepository.saveAndFlush(putSession);
-    } */
 }
