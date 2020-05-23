@@ -30,9 +30,9 @@ public class SonarResults {
     @Column
 
     private String smells;
-    @Column
+   /* @Column
 
-    private String coverage;
+    private String coverage; */
     @Column
 
     private String dups;
@@ -82,12 +82,12 @@ public class SonarResults {
 
     }
 
-    public SonarResults( String bugs, String vuls, String debt, String smells, String coverage, String dups, String dups_block,Long project_id,Long session_id,Double note_finale, LocalDateTime date) {
+    public SonarResults( String bugs, String vuls, String debt, String smells,  String dups, String dups_block,Long project_id,Long session_id,Double note_finale, LocalDateTime date) {
         this.bugs = bugs;
         this.vuls = vuls;
         this.debt = debt;
         this.smells = smells;
-        this.coverage = coverage;
+      //  this.coverage = coverage;
         this.dups = dups;
         this.dups_block = dups_block;
         this.date = date;
@@ -121,13 +121,13 @@ public class SonarResults {
         this.bugs = bugs;
     }
 
-    public String getCoverage() {
+   /* public String getCoverage() {
         return coverage;
     }
 
     public void setCoverage(String coverage) {
         this.coverage = coverage;
-    }
+    } */
 
     public String getDebt() {
         return debt;
@@ -241,7 +241,6 @@ public class SonarResults {
                 ", vuls=" + vuls +
                 ", debt=" + debt +
                 ", smells=" + smells +
-                ", coverage=" + coverage +
                 ", dups=" + dups +
                 ", dupBlock=" + dups_block +
                 '}';

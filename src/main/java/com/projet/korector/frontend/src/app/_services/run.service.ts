@@ -32,7 +32,7 @@ public sonarQubeRun(buildName : String , urlName : String, sessionId : Number, p
 }
 
 public getLastBuild(sessionId : Number, projectId : Number ) {
-  console.log (this.http.post<any>( "Results URL" + API_URL  +  "/sonarResults/getResultsBySessProj/" + sessionId + "/" + projectId,  httpOptions));
+  console.log (this.http.get<any>( "Results URL" + API_URL  +  "/sonarResults/getResultsBySessProj/" + sessionId + "/" + projectId,  httpOptions));
   return this.http.get<any> (API_URL  +  "/sonarResults/getResultsBySessProj/" + sessionId + "/" + projectId,  httpOptions);
 
 }
@@ -48,11 +48,9 @@ public runExistsBySessionProject(sessionId : Number, projectId : Number ){
   return this.http.get<boolean> (API_URL  +  "/sonarResults/runExistsSessionProject/" + sessionId + "/" + projectId,  httpOptions);
 
 }
-  // public exportCSV() : Observable<any>
-  // {
-  //   let headers = new HttpHeaders();
-  //   headers = headers.set('Accept', 'application/csv');
-  //   let routeQuery=this.url+"/exportCSV";
-  //   return this.http.get<any>(routeQuery,{headers: headers});
-  // }
+public getAllResultsByProjectId(projectId : Number ){
+  console.log (this.http.get<any>( "Results URL" + API_URL  +  "/sonarResults/getAllResultsProjects/"  + projectId,  httpOptions));
+  return this.http.get<any> (API_URL  +  "/sonarResults/getAllResultsProjects" + "/" + projectId,  httpOptions);
+
+}
 }

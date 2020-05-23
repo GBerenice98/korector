@@ -31,21 +31,24 @@ public class ProjectService {
     }
 
     public List<Project> getProjectBySession(Long sessionId) {
+return null;
 
-        return null;
+
     }
 
     public void deleteProject(Long projectId) {
         repository.deleteById(projectId);
     }
 
+
     public Optional<Project> getProjectById(Long projectId) {
         return repository.findById(projectId);
     }
 
-    public Project ProjectnById(Long projectId) {
+
+    /*public Project ProjectById(Long projectId) {
         return this.repository.findById(projectId).orElse(null);
-    }
+    } */
 
 
     public boolean existsByUrl(String html_url) {

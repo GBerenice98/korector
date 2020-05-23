@@ -9,6 +9,8 @@ import java.net.URI;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeoutException;
+
+import static com.projet.korector.jenkins.constants.*;
 /*Implémentation des fonctionnalités de Jenkins permettant la manipulation de Job pour compiler des projets*/
 
 @Service
@@ -39,6 +41,7 @@ public class Jenkins implements JenkinsService {
 
     //Retourne la liste des jobs contenus dans le serveur
     public Map<String,Job> getListJob(){
+
         listJob.clear();
         try {
            listJob.putAll(jenkinsServer.getJobs());
@@ -63,7 +66,7 @@ public class Jenkins implements JenkinsService {
         }
     }
     //Lance le build d'un Job
-    public String buildJob(String name, boolean isCreation){
+    public String buildJob(String name){
         JobWithDetails job = null;
         String result = null;
         try {
@@ -74,7 +77,7 @@ public class Jenkins implements JenkinsService {
             //job.build();
             System.out.println("Job build avant");
 
-            if(this.waitForBuildToComplete(600000,name,getLastBuildNumber(name) + 1,isCreation))
+            if(this.waitForBuildToComplete(600000,name,getLastBuildNumber(name) + 1))
                 return this.getResultLasBuild(name);
             else
                 return "Time OUT";
@@ -144,44 +147,66 @@ public class Jenkins implements JenkinsService {
         try {
             job = jenkinsServer.getJob(jobName);
             BuildWithDetails build = job.getLastBuild().details();
+
             return build.getConsoleOutputHtml();
         } catch (IOException e) {
             e.printStackTrace();
             return e.getMessage();
         }
     }
-    //patiente jusqu'à la fin d'un build
-    public boolean waitForBuildToComplete( long timeOut, String jobName,int numBuildExpected,boolean isCreation) throws InterruptedException, TimeoutException, IOException {
+
+
+
+    public boolean waitForBuildFinish(String jobName ) throws InterruptedException, TimeoutException, IOException {
+        boolean buildCompleted = false;
+
         JobWithDetails wrkJobData = jenkinsServer.getJob(jobName);
+        int expectedBuildNbr =wrkJobData.getLastBuild().getNumber();
+        System.out.println("Get build number" + wrkJobData.getLastBuild().getNumber());
+        while (!buildCompleted) {
+            Thread.sleep(10000);
+
+            System.out.println("Le build " + expectedBuildNbr + " est toujours en cours");
+
+            boolean isBuilding = wrkJobData.getLastBuild().details().isBuilding();
+                if (!isBuilding) {
+                    System.out.println("Le build " + expectedBuildNbr + " est terminee");
+
+                    buildCompleted = true;
+                  //  return true;
+                }
+            }
+
+        return buildCompleted;
+
+    }
+
+
+    //patiente jusqu'à la fin d'un build
+    public boolean waitForBuildToComplete( long timeOut, String jobName,int numBuildExpected) throws InterruptedException, TimeoutException, IOException {
+        JobWithDetails wrkJobData = jenkinsServer.getJob(jobName);
+
+        /*int expectedBuildNbr =wrkJobData.getLastBuild().getNumber();
+
+        numBuildExpected = expectedBuildNbr; */
         boolean buildCompleted = false;
         Long timeoutCounter = 0L;
         while (!buildCompleted) {
             Thread.sleep(10000);
             timeoutCounter = timeoutCounter + 5000L;
-            /*if (timeoutCounter > timeOut) {
-                throw new TimeoutException("The job did not complete in the expected time");
-            }*/
-            //When the build is in the queue, the nextbuild number didn't change.
-            //When it changed, It might still be running.
 
-            //System.out.println("TAILLE DE LISTBUILD " + wrkJobData.getAllBuilds().size());
-            int numLastBuild;
-            if(isCreation)
-                 numLastBuild = 0;
-            else
-                 numLastBuild =  wrkJobData.getAllBuilds().get(0).getNumber();
-            System.out.println("New Next Nbr:" + numBuildExpected + " vs " + numLastBuild);
+            System.out.println("Build en cours... ");
 
-            if (numLastBuild == numBuildExpected) {
                 boolean isBuilding = wrkJobData.getAllBuilds().get(0).details().isBuilding();
                 //System.out.println("is Build : " + isBuilding);
                 if (!isBuilding) {
                     buildCompleted = true;
                 }
-            }
+
         }
         return buildCompleted;
     }
+
     // Retourne le numéro du dernier build
     @Override
     public int getLastBuildNumber(String jobName) {

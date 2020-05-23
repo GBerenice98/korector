@@ -4,10 +4,10 @@ import { Project } from '../classes/project';
 import { SessionService } from '../_services/session.service';
 import { Session } from '../classes/session';
 import { ProjectService } from '../_services/project.service';
-import { FormControl } from '@angular/forms';
+import { interval } from 'rxjs';
 import { RunService } from '../_services/run.service';
 import { Run } from '../classes/run';
-import { DatePipe } from '@angular/common';
+import { DatePipe, JsonPipe } from '@angular/common';
 import { Criteria } from '../classes/criteria';
 import { CriteriaService } from '../_services/criteria.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -18,8 +18,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { TokenStorageService } from '../_services/token-storage.service';
 import { environment } from 'src/environments/environment';
 import {SonarResults} from '../classes/sonar-results';
-
-
+import {User} from '../classes/user';
+import {JenkinsService} from '../_services/jenkins.service';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -54,13 +54,22 @@ export class SessionDetailComponent implements OnInit {
 
 
   public buildName : string;
+  public previousBuildName : string;
+  public firstBuildName : string;
+  public firstBuildUrl: string;
+  public buildOutput : string ="";
+
   public buildUrl : string;
   public sonarQubeRun : any;
-  public username: string;
+
+  user: User;
   public sonarQubeResults : Array<SonarResults> = [];
   public runExitsForSession : boolean = false;
   public runExitsForSessionProject : boolean = false;
-
+  public index : number =2;
+  buildFirstJob : Boolean ;
+  buildPreviousJob : Boolean;
+  myProjectIsRuns : Boolean = false;
 
   /******* SonarResults attribute */
   public date : String
@@ -75,6 +84,8 @@ export class SessionDetailComponent implements OnInit {
   public project_id: Number;
   public session_id: Number;
   public show:boolean = false;
+  mySub: Subscription;
+
 
   constructor(private actRoute: ActivatedRoute, 
               private sessionService : SessionService, 
@@ -85,16 +96,19 @@ export class SessionDetailComponent implements OnInit {
               private modalService: NgbModal,
               private sessionCritereService: SessionCritereService,
               private http: HttpClient, 
-              private tokenStorage: TokenStorageService) {
+              private tokenStorage: TokenStorageService,
+              private jenkinsService: JenkinsService) {
 
     this.sessionId = this.actRoute.snapshot.params.id;
     this.typeCritere='Statique';
     this.seuilCritere=0;
-    this.valueCritere=0;
+
+ 
   }
 
   ngOnInit(): void {
-  
+    this.user = this.tokenStorage.getUser();
+
     const httpOptions = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' , 
       'Authorization' : 'Bearer ' + this.tokenStorage.getToken()})
@@ -129,55 +143,33 @@ export class SessionDetailComponent implements OnInit {
         console.log("Project id " + p.id);
         console.log("Session id " +this.sessionId);
          // For each project, verify if run exists
-        this.runService.runExistsBySessionProject(this.sessionId,p.id).subscribe(data =>
-        {
-          p.runExitsForSessionProject = data;
-          this.runExitsForSessionProject = data;
-          console.log("Run exists for session project 2 " +     this.runExitsForSessionProject);
-        });
-        
-        this.runService.getLastBuild(this.sessionId,p.id).subscribe(dataBis =>{
-          p.sonarResults = dataBis;
-          JSON.parse(JSON.stringify(p.sonarResults));
-          console.log("Json parse" + JSON.parse(JSON.stringify(p.sonarResults)));
+         this.runService.runExistsBySessionProject(this.sessionId,p.id).subscribe(data =>
+          {
+            if(data == true ){
+              this.runService.getLastBuild(this.sessionId,p.id).subscribe(dataBis =>{
 
-          //   JSON.parse(p.sonarResults.date);
-          if(p.sonarResults.date == undefined){
-            console.log("Undefined value");
-          }
-          else {
-            console.log("No it is not undefined value");
-          }
-          /* this.date =p.sonarResults.date; 
-            this.bugs =p.sonarResults.bugs;    
-            this.vuls =p.sonarResults.vuls;    
-            this.debt =p.sonarResults.debt;    
-            this.smells =p.sonarResults.smells;    
-            this.coverage =p.sonarResults.coverage; 
-            this.dups =p.sonarResults.dups;  
-            this.dups_block =p.sonarResults.dups_block;    
-            this.note_finale =p.sonarResults.note_finale;    
-            this.project_id =p.sonarResults.project_id;    
-            this.session_id =p.sonarResults.session_id;  */
+                    p.sonarResults = dataBis;
+                    JSON.parse(JSON.stringify(p.sonarResults));
+                    console.log("Json parse" + JSON.parse(JSON.stringify(p.sonarResults)));
 
-            console.log("Sonar results" + p.sonarResults.date);                
-        }); 
+                
+                    console.log("Sonar results" + p.sonarResults.date);
+                    p.runExitsForSessionProject = data;
+                    this.runExitsForSessionProject = data;
+                    console.log("Run exists for session project 2 " +     this.runExitsForSessionProject);
+
+              
+              }); 
+            }
+          });
+           
+          
+       
       });
     });
     this.sessionProjects=listProjects;
-    this.runService.getLastBuild(12,2).subscribe(dataBis =>{
-    //  p.sonarResults = dataBis;        
-     // console.log("Sonar Results data " + p.sonarResults );
+    console.log("sessionProjects :", this.sessionProjects)
 
-    });
-
-    this.sessionProjects.forEach( p => {
-        this.runService.getLastBuild(p.id,this.sessionId).subscribe(dataBis =>{
-            p.sonarResults = dataBis;
-            console.log("Project id " + p.id );
-            console.log("Sonar Results data " + p.sonarResults );
-        });
-    });
 
     let listSessionCriteres : Array<SessionCritere> =[];
     this.sessionService.getSessionCriteres(this.sessionId).subscribe(data => {
@@ -242,10 +234,7 @@ export class SessionDetailComponent implements OnInit {
 
     let pourcentageTotal:number=0;
     this.sessionCriteres.forEach(c => {
-
-      if(c.type=="Dynamique") c.value=parseFloat(document.getElementsByName("sessionCritereValue_"+c.id)[0]["value"]);
-
-      if(!this.newCriteria.includes(c)) 
+      if(!this.newCriteria.includes(c))
       {
         c.height=parseInt(document.getElementsByName("sessionCritereHeight_"+c.id)[0]["value"]);
         if(this.userRole!="ETUDIANT")
@@ -253,9 +242,12 @@ export class SessionDetailComponent implements OnInit {
           c.seuil=parseInt(document.getElementsByName("sessionCritereSeuil_"+c.id)[0]["value"]);
         }
         else c.seuil=0;
-        this.sessionCritereService.updateSessionCritere(c.id,c.height,c.seuil,c.value).subscribe(data=>{ 
+        /*this.sessionCritereService.updateSessionCritere(c.id,c.height,c.seuil).subscribe(data=>{ 
          console.log("data")
-         });
+         });  */
+         this.sessionCritereService.updateSessionCritere(c.id,c.height,c.seuil,c.value).subscribe(data=>{ 
+          console.log("data")
+          });
       }         
       pourcentageTotal=pourcentageTotal+c.height;
     });
@@ -313,7 +305,6 @@ export class SessionDetailComponent implements OnInit {
       sessionCritere.sessionId=this.sessionId;
       sessionCritere.height=this.poidsCritere;
       sessionCritere.type=criteria.type;
-      sessionCritere.value=this.valueCritere;
 
       if(this.userRole!="ETUDIANT")
       {
@@ -352,35 +343,55 @@ export class SessionDetailComponent implements OnInit {
 
   public changeCritereType(type : string) : void { this.typeCritere=type; }
 
-  public createRun() : void
-  {
-    this.runService.createRun(this.sessionId).subscribe( data => {
-      this.sessionRuns.push(data);
-    });  
+
+
+  public createOneRun(p : Project ) {
     this.show = true;
+     
+    this.buildName = p.name+"_"+ this.user.username +"_" + this.sessionId ;
+    this.buildUrl = p.url.replace(/\//g , ",");
+    console.log("Name " + this.buildName);
+    console.log("Url " + this.buildUrl);
 
-    this.sessionProjects.forEach(project => {
-      this.buildName = project.name+"_"+ this.username +"_" + this.sessionId ;
-      this.buildUrl = project.url.replace(/\//g , ",");
-      console.log("Name " + this.buildName);
-      console.log("Url " + this.buildUrl);
-      this.runService.sonarQubeRun(this.buildName,this.buildUrl,this.sessionId, project.id).subscribe(data=>{
-       // data = data.json();
-       this.show = false;
-        this.sonarQubeRun = data;
-        console.log(this.sonarQubeRun);
-       
-      });;
-    //  this.openValidationModal("Run OK" + this.sonarQubeRun);
-    console.log("Data from run" + this.sonarQubeRun)
+     const timeValue = setInterval(() => { 
+      this.jenkinsService.getConsoleOutput(this.buildName).subscribe(dataBuild=>{
+        console.log(dataBuild) 
+        this.openValidationModal(" " + dataBuild);
 
-    });
+      });
 
+
+
+     }, 20000, true);
+
+
+    /*this.mySub = interval(30000).subscribe((func => {
+      this.jenkinsService.getConsoleOutput(this.buildName).subscribe(dataBuild=>{
+        console.log(dataBuild) 
+        this.openValidationModal(" " + dataBuild);
+
+      });
+
+
+})); */
+
+   this.runService.sonarQubeRun(this.buildName,this.buildUrl,this.sessionId, p.id).subscribe(data=>{
+   this.show = false;
+   this.sonarQubeRun = data;
+    if(data!=null){
+      console.log(this.sonarQubeRun);
+      clearInterval(timeValue);
+       this.reloadPage();
+
+    }
+                              
+     });;
   }
 
-  public exportCSV(runId : number) : void
+
+  public exportCSV(runId : number,sessionId : number) : void
   {
-    this.sessionService.exportCSV(runId).subscribe( data => {
+    this.sessionService.exportCSV(runId,sessionId).subscribe( data => {
       let date = new Date();
       this.datepipe.transform(date, 'ddMMyyyyHHmmss');
       let blob = new Blob([data], {type: 'text/csv' });
@@ -396,7 +407,11 @@ export class SessionDetailComponent implements OnInit {
     const modalRef = this.modalService.open(ValidationModalComponent);
     modalRef.componentInstance.message = message;
   }
-  // ngOnDestroy() {
-  //   this.subscription.unsubscribe();
-  // }
+  reloadPage() {
+    window.location.reload();
+  }
+  /*
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  } */
 }

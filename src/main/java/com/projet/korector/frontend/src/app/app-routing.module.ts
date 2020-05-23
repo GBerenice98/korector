@@ -34,6 +34,7 @@ import {CriteriaDetailsComponent} from "./criteria-details/criteria-details.comp
 import {UpdateCriteriaComponent} from "./update-criteria/update-criteria.component";
 import { AjoutSessionCritereComponent } from './ajout-session-critere/ajout-session-critere.component';
 import {SectionDetailComponent} from "./section-details/section-details.component";
+import { MesResultatsComponent } from './mes-resultats/mes-resultats.component';
 
 
 const routes: Routes = [
@@ -73,7 +74,9 @@ const routes: Routes = [
   {path: 'addCriteria', component: CreateCriteriaComponent},
   {path: 'findCriteria', component: SearchCriteriaComponent},
   { path: 'criteria-details/:id', component:  CriteriaDetailsComponent},
-  { path: 'update-criteria/:id', component:  UpdateCriteriaComponent}
+  { path: 'update-criteria/:id', component:  UpdateCriteriaComponent},
+  { path: 'Resultats', component:  MesResultatsComponent}
+
 ];
 
 @NgModule({

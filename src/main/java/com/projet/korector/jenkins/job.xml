@@ -2,12 +2,12 @@
     <actions/>
     <description/>
     <keepDependencies>false</keepDependencies>
-    <properties>sonar.projectKey=seye sonar.projectName=seye sonar.java.binaries = src/main/java/</properties>
+    <properties>sonar.projectKey=seye sonar.projectName=seye sonar.java.binaries = /</properties>
     <scm class="hudson.plugins.git.GitSCM" plugin="git@4.1.1">
         <configVersion>2</configVersion>
         <userRemoteConfigs>
             <hudson.plugins.git.UserRemoteConfig>
-                <url>https://github.com/kam/dynamics_crm</url>
+                <url>https://github.com/Awadiagne97/korector</url>
                 <!-- <credentialsId>0894aed9-4937-4c08-8985-d9948f97e5eb</credentialsId> -->
             </hudson.plugins.git.UserRemoteConfig>
         </userRemoteConfigs>
@@ -28,9 +28,9 @@
     <concurrentBuild>false</concurrentBuild>
     <builders>
         <hudson.plugins.sonar.SonarRunnerBuilder plugin="sonar@2.11">
-            <properties>sonar.projectKey=dynamics_crm_undefined_37
- sonar.projectName=dynamics_crm_undefined_37
- sonar.java.binaries =src/main/java/</properties>
+            <properties>sonar.projectKey=korector_Awadiagne97_35
+ sonar.projectName=korector_Awadiagne97_35
+ sonar.java.binaries =/</properties>
             <project/>
 
             <javaOpts/>

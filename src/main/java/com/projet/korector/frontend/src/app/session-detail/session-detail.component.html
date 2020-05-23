@@ -48,7 +48,7 @@
             <tbody *ngFor="let run of sessionRuns">
               <tr>
                 <td>{{run.id}}</td>
-                <td><button class="btn" (click)="exportCSV(run.id)"><i class="fa fa-download"></i></button></td>                           
+                <td><button class="btn" (click)="exportCSV(run.id,run.session.id)"><i class="fa fa-download"></i></button></td>                           
               </tr>
             </tbody>
           </table>
@@ -102,7 +102,7 @@
               <mat-form-field *ngIf="this.userRole!=='ETUDIANT'">
                   <mat-label>Seuil du critère</mat-label>
                   <input matInput placeholder="Ex. Seuil Bugs=20" [(ngModel)]="seuilCritere">
-                  <mat-hint><strong>Seuil à partir duquel on a pas à évaluer le critère</strong></mat-hint>
+                  <mat-hint><strong>Seuil pour evaluer le critere</strong></mat-hint>
               </mat-form-field>
           </div><br><br>
 
@@ -127,10 +127,10 @@
         </mat-select>
       </mat-form-field>
     </div>
-    <div class="col-md-6">
+   <!--<div class="col-md-6">
       <button class="btn btn-primary" (click)="createRun()"  [disabled]="show" *ngIf="!runExitsForSession" >Run</button>
       <button class="btn btn-primary" (click)="createRun()"  [disabled]="show" *ngIf="runExitsForSession">Relancer</button>
-    </div>
+    </div> --> 
   </div>
   <br><br>
 
@@ -151,7 +151,7 @@
       <tr>
         <td>{{project.name}}</td>
         <td>{{project.url}}</td>
-        <td> LastBuild : {{project && project.sonarResults &&  project.sonarResults.date}}</td>
+        <td>  {{project && project.sonarResults &&  project.sonarResults.date}}</td>
         <td>
           Bugs :{{project && project.sonarResults &&  project.sonarResults.bugs}}<br>
           Debt  :{{project && project.sonarResults &&  project.sonarResults.debt}} <br>
@@ -161,22 +161,23 @@
           Duplications blockes :{{project && project.sonarResults &&  project.sonarResults.dups_block}}
         </td>
         <td> {{project && project.sonarResults &&  project.sonarResults.note_finale}}  
-          <!--
+        
         </td>
-        <td>          my-loader.component.html -->
+         <!-- <td>          my-loader.component.html 
           <ng-container *ngIf="show">
             <div class="progress-loader" >
                   <img src="assets/img/Spinner-1.4s-64px.svg">
                   <span class="loading-message">Please wait...</span>
             </div>
           </ng-container>
-        </td>
+        </td> -->
         <td>
-          <div class="col-md-6" *ngIf="runExitsForSessionProject">
-            <button class="btn btn-primary" (click)="createRun()"  [disabled]="show">Run</button>
+
+          <div class="btn btn-primary" *ngIf="runExitsForSessionProject">
+            <button class="btn btn-primary" (click)="createOneRun(project)"  [disabled]="show">Relancer</button>
           </div>
-          <div class="col-md-6" *ngIf="!runExitsForSessionProject">
-            <button class="btn" (click)="createRun()"  [disabled]="show" ><i class="fa fa-refresh"></i></button>
+          <div class="btn btn-primary" *ngIf="!runExitsForSessionProject">
+            <button class="btn" (click)="createOneRun(project)"  [disabled]="show" >Run</button>
           </div>            
         </td>
         <td><button class="btn" (click)="deleteToProjectList(project)"><i class="fa fa-trash"></i></button></td> 

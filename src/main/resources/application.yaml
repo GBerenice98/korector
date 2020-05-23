@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: jdbc:postgresql://34.69.54.57:5432/korectordb?
+    url: jdbc:postgresql://localhost:5432/korectordb?
     username: postgres
-    password: admin
+    password: Database20
 
   jpa:
     show-sql: true

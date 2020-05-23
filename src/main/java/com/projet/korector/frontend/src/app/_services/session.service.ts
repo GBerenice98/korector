@@ -25,9 +25,9 @@ export class SessionService {
   constructor(private http: HttpClient) {
   }
 
-  public createSession(session : Session) : Observable<Session>
+  public createSession(session : Session, type : String) : Observable<Session>
   {
-    const routeQuery=this.url+"/createSession";
+    const routeQuery=this.url+"/createSession/" + type;
     console.log("session", session)
 
     console.log("session dans service : ", session)
@@ -89,14 +89,15 @@ export class SessionService {
     return this.http.delete(routeQuery);
   }
 
-  public addProjectToSession(sessionId : number,projectId : number) : Observable<number>
+  public addProjectToSession(sessionId : Number,projectId : Number ) : Observable<number>
   {
     console.log("add project service : ",sessionId,projectId);
     let routeQuery=this.url+"/addProjectToSession/"+sessionId+"/"+projectId;
-    return this.http.get<number>(routeQuery);
+    console.log("routeQuery" + routeQuery);
+    return this.http.get<number>(routeQuery,httpOptions);
   }
 
-  public deleteProjectFromSession(projectId : Number, sessionId : Number) : Observable<any>
+  public deleteProjectFromSession(projectId : number, sessionId : number) : Observable<any>
   {
     const routeQuery=this.url+"/deleteProjectFromSession/"+sessionId+"/"+projectId;
     return this.http.delete(routeQuery);
@@ -114,10 +115,10 @@ export class SessionService {
     return this.http.get<Array<Session>>(routeQuery);
   }
 
-  public exportCSV(runId : number)
+  public exportCSV(runId : number, sessionId : number)
   {
     const headers = new HttpHeaders({Accept: 'text/csv'});
-    let routeQuery=this.url+"/exportCSV/"+runId;
+    let routeQuery=this.url+"/exportCSV/"+runId+"/"+sessionId;
     return this.http.get(routeQuery,{headers,responseType:'arraybuffer'});
   }
 
