@@ -1,4 +1,4 @@
-<td><button class="btnStats" routerLink="/addTeacher"><a > Ajouter prof</a></button></td>
+<td><button class="btnStats" routerLink="/addTeacher"><a > Add teacher </a></button></td>
 
 
 <div class="row">
@@ -16,7 +16,7 @@
           </tr>
         </thead>
         <tbody  *ngFor="let prof of profs">
-            <tr  > 
+            <tr  >
             <td>{{ prof.id }}</td>
             <td>{{ prof.username }}</td>
             <td>{{ prof.githubAccount }}</td>
@@ -24,12 +24,12 @@
 
 
             <td><button  class="btn"><a routerLink="/"> Update </a></button></td>
-         
+
             <td><button  (click)="deleteUserById(prof)" class="btn"><i class="fa fa-trash"></i></button></td>
 
-          </tr>    
-          
+          </tr>
+
         </tbody>
-    </table>          
+    </table>
 </div><br><br>
 
