@@ -151,7 +151,7 @@
       <tr>
         <td>{{project.name}}</td>
         <td>{{project.url}}</td>
-        <td> LastBuild : {{project && project.sonarResults &&  project.sonarResults.date}}</td>
+        <td>  {{project && project.sonarResults &&  project.sonarResults.date}}</td>
         <td>
           Bugs :{{project && project.sonarResults &&  project.sonarResults.bugs}}<br>
           Debt  :{{project && project.sonarResults &&  project.sonarResults.debt}} <br>
@@ -172,10 +172,11 @@
           </ng-container>
         </td> -->
         <td>
-          <div class="col-md-6" *ngIf="runExitsForSessionProject">
+
+          <div class="btn btn-primary" *ngIf="runExitsForSessionProject">
             <button class="btn btn-primary" (click)="createOneRun(project)"  [disabled]="show">Relancer</button>
           </div>
-          <div class="col-md-6" *ngIf="!runExitsForSessionProject">
+          <div class="btn btn-primary" *ngIf="!runExitsForSessionProject">
             <button class="btn" (click)="createOneRun(project)"  [disabled]="show" >Run</button>
           </div>            
         </td>

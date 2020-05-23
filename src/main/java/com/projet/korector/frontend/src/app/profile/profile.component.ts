@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { TokenStorageService } from '../_services/token-storage.service';
+
 const AUTH_API = 'http://localhost:8085/';
 @Component({
   selector: 'app-profile',
@@ -10,6 +11,7 @@ const AUTH_API = 'http://localhost:8085/';
 export class ProfileComponent implements OnInit {
 
   username = '';
+  userRole : string;
   name = '';
   imageURL = '';
   email = '';
@@ -19,6 +21,9 @@ export class ProfileComponent implements OnInit {
   isLoggedIn = false;
   isLoginFailed = false;
   toReload = true;
+  showAdminBoard = false;
+  showStudentBoard = false;
+  showModeratorBoard = false;
   constructor(private http: HttpClient, 
     private tokenStorage: TokenStorageService) { }
 
@@ -34,7 +39,11 @@ export class ProfileComponent implements OnInit {
         this.isLoggedIn = true;
         this.roles = this.tokenStorage.getUser().roles.map(x => x.name).join(',');
         this.roles = this.roles.replace("ROLE_", "");
+        console.log("profile",this.roles)
         this.username = this.tokenStorage.getUser().username;
+        console.log("User name  = " + this.username);
+        this.showStudentBoard = this.roles.includes('ROLE_ETUDIANT');
+
         this.name = this.tokenStorage.getUser().name;
         this.imageURL = this.tokenStorage.getUser().imageUrl;
         if(this.imageURL == null){
@@ -70,6 +79,10 @@ export class ProfileComponent implements OnInit {
       this.tokenStorage.toggleFLAGREF();
         
     }
+
+
+
+
     
   }
 

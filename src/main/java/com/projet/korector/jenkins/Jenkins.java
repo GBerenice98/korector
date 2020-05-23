@@ -182,8 +182,6 @@ public class Jenkins implements JenkinsService {
     }
 
 
-
-
     //patiente jusqu'à la fin d'un build
     public boolean waitForBuildToComplete( long timeOut, String jobName,int numBuildExpected) throws InterruptedException, TimeoutException, IOException {
         JobWithDetails wrkJobData = jenkinsServer.getJob(jobName);
@@ -208,38 +206,7 @@ public class Jenkins implements JenkinsService {
         }
         return buildCompleted;
     }
-    /*
-    @Override
-    // pour verifier si y'a un job entrain de build
-    public boolean isBuilding(){
-       // listJob.clear();
-        try {
-            Map<String,Job> jobs = jenkinsServer.getJobs();
-            for (int i=0;i<jobs.size();i++){
-                jobs[i].getValue("Job");
-                Job wrkJobData = listJob[i].getValue();
-                boolean isBuilding = listJob[i].getgetAllBuilds().get(0).details().isBuilding();
 
-            }
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-
-        jenkinsServer.get
-        for(MavenBuild items : mavenJob.getBuilds())
-        {
-
-            details=items.details();
-            System.out.println(details.getFullDisplayName());
-        }
-        JobWithDetails wrkJobData = jenkinsServer.getJobs();
-
-        boolean isBuilding = wrkJobData.getAllBuilds().get(0).details().isBuilding();
-
-
-    } */
     // Retourne le numéro du dernier build
     @Override
     public int getLastBuildNumber(String jobName) {

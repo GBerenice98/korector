@@ -71,21 +71,20 @@ Github is required
     <h2>You submitted the following:</h2>
 
     <div class="row">
-      <div class="col-xs-3">Username</div>
-      <div class="col-xs-9">{{ model.username}}</div>
+      <div class="col-xs-3">Username</div> <br>
+      <div class="col-xs-9"> {{ model.username}} </div>
     </div>
 
     <div class="row">
-      <div class="col-xs-3">E-mail</div>
+      <div class="col-xs-3">E-mail</div><br>
       <div class="col-xs-9">{{ model.email }}</div>
     </div>
 
     <div class="row">
-      <div class="col-xs-3">Github</div>
+      <div class="col-xs-3">Github</div><br>
       <div class="col-xs-9">{{ model.githubAccount }}</div>
     </div>
 
-    <br>
-    <button class="btn btn-primary" (click)="submitted=false">Edit</button>
+  
 
   </div>

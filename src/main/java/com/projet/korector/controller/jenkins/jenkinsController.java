@@ -162,12 +162,7 @@ public class jenkinsController {
 
                }
 
-               /*************** For coverage and dup no need seuil ***************/
-              /* if (criteriaId.getName().equalsIgnoreCase("coverage")) {
 
-                   noteCoverage = Double.parseDouble(sonarBuild.get("coverage")) / 100;
-                   statsNote += ( ( 20 * noteCoverage)  * (criteriaId.getHeight() / 100));
-               }*/
                if (criteriaId.getName().equalsIgnoreCase("duplications")) {
                    noteDuplications = (100 - Double.parseDouble(sonarBuild.get("duplications"))) / 100;
                    statsNote +=  ( 20 * noteDuplications)  * ( ( double) criteriaId.getHeight() / 100);
@@ -186,8 +181,6 @@ public class jenkinsController {
                    noteBlock = Double.parseDouble(sonarBuild.get("blocs dupliqués")) >= seuilCritere ? 0 : 1 - Double.parseDouble(sonarBuild.get("blocs dupliqués")) / seuilCritere;
 
                    statsNote += ( 20 * noteBlock ) * ( ( double)criteriaId.getHeight()/ 100);
-
-                   //   double noteFinale = (resultBug) + res
                }
 
            }
@@ -221,7 +214,7 @@ public class jenkinsController {
         XmlReader xmlReader = new XmlReader(url,properties);
         String xmlJob = xmlReader.formatXML();System.out.println("New Xml Job " + xmlJob);
    ;
-    String result = jenkinsService.createJob(name, xmlJob,true);
+        String result = jenkinsService.createJob(name, xmlJob,true);
         System.out.println("Result  " + result);
 
         return result;

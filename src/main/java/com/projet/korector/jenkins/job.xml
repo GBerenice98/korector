@@ -28,8 +28,8 @@
     <concurrentBuild>false</concurrentBuild>
     <builders>
         <hudson.plugins.sonar.SonarRunnerBuilder plugin="sonar@2.11">
-            <properties>sonar.projectKey=korector_admin_23
- sonar.projectName=korector_admin_23
+            <properties>sonar.projectKey=korector_Awadiagne97_35
+ sonar.projectName=korector_Awadiagne97_35
  sonar.java.binaries =/</properties>
             <project/>
 

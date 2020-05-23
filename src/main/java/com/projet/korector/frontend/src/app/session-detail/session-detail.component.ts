@@ -4,7 +4,7 @@ import { Project } from '../classes/project';
 import { SessionService } from '../_services/session.service';
 import { Session } from '../classes/session';
 import { ProjectService } from '../_services/project.service';
-import { FormControl } from '@angular/forms';
+import { interval } from 'rxjs';
 import { RunService } from '../_services/run.service';
 import { Run } from '../classes/run';
 import { DatePipe, JsonPipe } from '@angular/common';
@@ -20,7 +20,6 @@ import { environment } from 'src/environments/environment';
 import {SonarResults} from '../classes/sonar-results';
 import {User} from '../classes/user';
 import {JenkinsService} from '../_services/jenkins.service';
-
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -65,26 +64,28 @@ export class SessionDetailComponent implements OnInit {
 
   user: User;
   public sonarQubeResults : Array<SonarResults> = [];
-public runExitsForSession : boolean = false;
-public runExitsForSessionProject : boolean = false;
-public index : number =2;
-buildFirstJob : Boolean ;
-buildPreviousJob : Boolean;
-myProjectIsRuns : Boolean = false;
+  public runExitsForSession : boolean = false;
+  public runExitsForSessionProject : boolean = false;
+  public index : number =2;
+  buildFirstJob : Boolean ;
+  buildPreviousJob : Boolean;
+  myProjectIsRuns : Boolean = false;
 
-/******* SonarResults attribute */
-public date : String
-public bugs : String;
-public vuls: String;
-public debt: String;
-public smells: String;
-public coverage:String;
-public dups: String;
-public dups_block : String;
-public note_finale: Number;
-public project_id: Number;
-public session_id: Number;
+  /******* SonarResults attribute */
+  public date : String
+  public bugs : String;
+  public vuls: String;
+  public debt: String;
+  public smells: String;
+  public coverage:String;
+  public dups: String;
+  public dups_block : String;
+  public note_finale: Number;
+  public project_id: Number;
+  public session_id: Number;
   public show:boolean = false;
+  mySub: Subscription;
+
 
   constructor(private actRoute: ActivatedRoute, 
               private sessionService : SessionService, 
@@ -351,22 +352,40 @@ public session_id: Number;
     this.buildUrl = p.url.replace(/\//g , ",");
     console.log("Name " + this.buildName);
     console.log("Url " + this.buildUrl);
-    this.jenkinsService.getConsoleOutput(this.buildName).subscribe(dataBuild=>{
-      console.log(dataBuild);
-  //     this.buildOutput = data;
-                //    this.openValidationModal("test");
 
-  this.openValidationModal(" " + dataBuild);
-   });
+     const timeValue = setInterval(() => { 
+      this.jenkinsService.getConsoleOutput(this.buildName).subscribe(dataBuild=>{
+        console.log(dataBuild) 
+        this.openValidationModal(" " + dataBuild);
 
-                   this.runService.sonarQubeRun(this.buildName,this.buildUrl,this.sessionId, p.id).subscribe(data=>{
-           
-                  
-                    this.show = false;
-                   this.sonarQubeRun = data;
-                            console.log(this.sonarQubeRun);
-                          
-                          });;
+      });
+
+
+
+     }, 20000, true);
+
+
+    /*this.mySub = interval(30000).subscribe((func => {
+      this.jenkinsService.getConsoleOutput(this.buildName).subscribe(dataBuild=>{
+        console.log(dataBuild) 
+        this.openValidationModal(" " + dataBuild);
+
+      });
+
+
+})); */
+
+   this.runService.sonarQubeRun(this.buildName,this.buildUrl,this.sessionId, p.id).subscribe(data=>{
+   this.show = false;
+   this.sonarQubeRun = data;
+    if(data!=null){
+      console.log(this.sonarQubeRun);
+      clearInterval(timeValue);
+       this.reloadPage();
+
+    }
+                              
+     });;
   }
 
 
@@ -387,6 +406,9 @@ public session_id: Number;
   public openValidationModal(message:string) : void {
     const modalRef = this.modalService.open(ValidationModalComponent);
     modalRef.componentInstance.message = message;
+  }
+  reloadPage() {
+    window.location.reload();
   }
   /*
   ngOnDestroy() {

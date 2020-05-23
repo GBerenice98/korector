@@ -24,11 +24,16 @@ export class NavComponent implements OnInit {
       this.showAdminBoard = this.roles.includes('ROLE_ADMIN');
       console.log("Nav bar: showAdminBoard = " + this.showAdminBoard);
       this.showModeratorBoard = this.roles.includes('ROLE_ENSEIGNANT');
+      if(this.showModeratorBoard){
+        this.showAdminBoard =true;
+      }
       console.log("Nav bar: roles = " + this.roles);
       if(!this.showModeratorBoard && !this.showAdminBoard){
         this.showStudentBoard = true;
       }
       console.log("Nav bar: showStudentBoard = " + this.showStudentBoard);
+      console.log("Nav bar: showModBoard = " + this.showModeratorBoard);
+
       this.username = user.username;
       console.log("User name  = " + this.username);
 
