@@ -30,8 +30,6 @@ export class AddStudentComponent implements OnInit {
     this.adminService.getAllSections().subscribe(sections =>{
       sections.forEach(element => {
         letSections.push(element["name"]);
-       // return;
-
       console.log(element["name"]);
     });
 

@@ -77,10 +77,10 @@ public class UserController {
             userRole = roleRepository.findByName(ERole.ROLE_ETUDIANT)
                     .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
         }
-      else {
-            userRole = roleRepository.findByName(ERole.ROLE_ENSEIGNANT)
-                    .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
-        }
+        else {
+                userRole = roleRepository.findByName(ERole.ROLE_ENSEIGNANT)
+                        .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
+            }
         roles.add(userRole);
         user.setRoles(roles);
 
@@ -173,12 +173,7 @@ public class UserController {
         return new ResponseEntity<Set<Session>>(sessions, HttpStatus.OK);
 
     }
-
-
-
-
-
-
+    
 }
 
 

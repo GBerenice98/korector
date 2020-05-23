@@ -213,25 +213,6 @@ public class SonarResults {
         this.sessionId = sessionId;
     }
 
-/*
-
-    public Project getResultsSonarProjects() {
-        return resultsSonarProjects;
-    }
-
-    public void setResultsSonarProjects(Project resultsSonarProjects) {
-        this.resultsSonarProjects = resultsSonarProjects;
-    }
-
-    public Session getResultsSonarSessions()
-
-    {
-        return resultsSonarSessions;
-    }
-
-    public void setResultsSonarSessions(Session resultsSonarSessions) {
-        this.resultsSonarSessions = resultsSonarSessions;
-    } */
 
     @Override
     public String toString() {
