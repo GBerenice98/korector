@@ -27,14 +27,12 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.concurrent.TimeoutException;
-
 import static com.projet.korector.jenkins.constants.*;
 
 @RestController
 @RequestMapping(value = "/api/jenkins")
 
 public class jenkinsController {
-
 
 
     @Autowired
@@ -185,7 +183,6 @@ public class jenkinsController {
 
            }
 
-       DecimalFormat df = new DecimalFormat("0.00");
 
            finaleNote = (statsNote + dynamicNote);
            SonarResults sonarResults = new SonarResults(sonarBuild.get("nombre de bugs"),
@@ -196,8 +193,8 @@ public class jenkinsController {
            sonarController.saveResults(sonarResults);
             System.out.println("Stats" + statsNote);
 
-             System.out.println("Final note" + finaleNote);
-           return true;
+            System.out.println("Final note" + finaleNote);
+            return true;
 
                }
 
@@ -226,7 +223,7 @@ public class jenkinsController {
     private Map<String,String>build(@PathVariable String name, @PathVariable String url, boolean boo){
         jenkinsService = new Jenkins(USERNAME_JENKINS,PASSWORD_JENKINS,URL_JENKINS);
         boolean isCreation = true;
-String str;
+        String str;
         if(!jenkinsService.isJobExist(name)) {
             String creation = createJob(name,url);
             System.out.println("Job name : " + creation);

@@ -4,7 +4,7 @@ import { Project } from '../classes/project';
 import { SessionService } from '../_services/session.service';
 import { Session } from '../classes/session';
 import { ProjectService } from '../_services/project.service';
-import { interval } from 'rxjs';
+import {Observable} from 'rxjs';
 import { RunService } from '../_services/run.service';
 import { Run } from '../classes/run';
 import { DatePipe, JsonPipe } from '@angular/common';
@@ -28,7 +28,6 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./session-detail.component.scss']
 })
 export class SessionDetailComponent implements OnInit {
-  private subscription: Subscription;
   public sessionId: number;
   public sessionName : string ="";
   public sessionDateDepot : string="";
@@ -44,7 +43,7 @@ export class SessionDetailComponent implements OnInit {
   public allProjects : Array<Project>=[];
   public sessionRuns : Array<Run>=[];
   public newCriteria : Array<SessionCritere> =[];
-
+  public userProjects : Array<Project>=[];
   public nameSession: string;
   public nameCritere : string;
   public valueCritere: number;
@@ -84,7 +83,8 @@ export class SessionDetailComponent implements OnInit {
   public project_id: Number;
   public session_id: Number;
   public show:boolean = false;
-  mySub: Subscription;
+  empty = false;
+
 
 
   constructor(private actRoute: ActivatedRoute, 
@@ -108,6 +108,7 @@ export class SessionDetailComponent implements OnInit {
 
   ngOnInit(): void {
     this.user = this.tokenStorage.getUser();
+    //this.reloadData();
 
     const httpOptions = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' , 
@@ -178,12 +179,11 @@ export class SessionDetailComponent implements OnInit {
     this.sessionCriteres=listSessionCriteres;
 
     console.log("sessionCriteres :", this.sessionCriteres)
+   this.projectService.getProject(this.user.id).subscribe(data => {
+    // data.forEach(p => { projectList.push(p); })
+    this.userProjects=data; 
+  });
 
-    let projectList: Array<Project>=[];
-    this.projectService.getProjectList().subscribe(data => {
-      data.forEach(p => { projectList.push(p); })
-    });
-    this.allProjects=projectList;
 
     let runs: Array<Run>=[];
     this.sessionService.getSessionRuns(this.sessionId).subscribe(data => {
@@ -242,9 +242,7 @@ export class SessionDetailComponent implements OnInit {
           c.seuil=parseInt(document.getElementsByName("sessionCritereSeuil_"+c.id)[0]["value"]);
         }
         else c.seuil=0;
-        /*this.sessionCritereService.updateSessionCritere(c.id,c.height,c.seuil).subscribe(data=>{ 
-         console.log("data")
-         });  */
+      
          this.sessionCritereService.updateSessionCritere(c.id,c.height,c.seuil,c.value).subscribe(data=>{ 
           console.log("data")
           });
@@ -364,17 +362,6 @@ export class SessionDetailComponent implements OnInit {
 
      }, 20000, true);
 
-
-    /*this.mySub = interval(30000).subscribe((func => {
-      this.jenkinsService.getConsoleOutput(this.buildName).subscribe(dataBuild=>{
-        console.log(dataBuild) 
-        this.openValidationModal(" " + dataBuild);
-
-      });
-
-
-})); */
-
    this.runService.sonarQubeRun(this.buildName,this.buildUrl,this.sessionId, p.id).subscribe(data=>{
    this.show = false;
    this.sonarQubeRun = data;
@@ -407,11 +394,9 @@ export class SessionDetailComponent implements OnInit {
     const modalRef = this.modalService.open(ValidationModalComponent);
     modalRef.componentInstance.message = message;
   }
+
   reloadPage() {
     window.location.reload();
   }
-  /*
-  ngOnDestroy() {
-    this.subscription.unsubscribe();
-  } */
+
 }

@@ -77,7 +77,6 @@ export class ProjectComponent implements OnInit {
 
     this.projets.subscribe((value) => {
       console.log(value);
-      // tslint:disable-next-line:triple-equals
       if(value.length == 0) {
         this.empty = true;
       }
@@ -148,12 +147,6 @@ export class ProjectComponent implements OnInit {
     this.hideView=true;
   }
 
-
-
-  // public formattedDate(d : Date) : string{
-  //   return [d.getDate(), d.getMonth()+1, d.getFullYear()]
-  //       .map(n => n < 10 ? `0${n}` : `${n}`).join('/');
-  // }
 
   public  stringToDate(_date)
   {

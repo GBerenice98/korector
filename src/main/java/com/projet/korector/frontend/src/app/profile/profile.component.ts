@@ -32,6 +32,18 @@ export class ProfileComponent implements OnInit {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' , 
       'Authorization' : 'Bearer ' + this.tokenStorage.getToken()})
     };
+    //you want reload once after first load
+window.onload = function() {
+  //considering there aren't any hashes in the urls already
+  if(!window.location.hash) {
+      //setting window location
+      window.location.href  = window.location + '#loaded';
+      //using reload() method to reload web page
+      window.location.reload();
+  }
+}
+    // reload page 
+    //this.reloadPage();
     this.http.get(AUTH_API + 'user/me', httpOptions).subscribe(
       data => {
         this.tokenStorage.saveUser(data);
@@ -84,6 +96,10 @@ export class ProfileComponent implements OnInit {
 
 
     
+  }
+
+  reloadPage() {
+    window.location.reload();
   }
 
 }
