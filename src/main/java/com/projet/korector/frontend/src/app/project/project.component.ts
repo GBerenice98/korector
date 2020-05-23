@@ -46,17 +46,17 @@ export class ProjectComponent implements OnInit {
 
     //Recuperation du profile de l'utilisateur
     const httpOptions = {
-      headers: new HttpHeaders({ 'Content-Type': 'application/json' , 
+      headers: new HttpHeaders({ 'Content-Type': 'application/json' ,
       'Authorization' : 'Bearer ' + this.tokenStorage.getToken()})
     };
     this.http.get(environment.api_base_url + '/user/me', httpOptions).subscribe(
       data => {
-        this.tokenStorage.saveUser(data);      
+        this.tokenStorage.saveUser(data);
         this.userRole = this.tokenStorage.getUser().roles.map(x => x.name).join(',');
         this.userRole = this.userRole.replace("ROLE_", "");
         console.log("profile",this.userRole)
       });
-      
+
       //Initialisation des listes allProjects et allDepositeSessions
       let projectList: Array<Project>=[];
       this.projetService.getProjectList().subscribe(data => {
@@ -88,28 +88,13 @@ export class ProjectComponent implements OnInit {
     });
 }
 
-  deleteProject(id: number) {
-    this.projetService.deleteProject(id)
-      .subscribe(
-        data => {
-          console.log(data);
-          this.reloadData();
-        },
-        error => console.log(error));
-    this.reloadData();
-  }
-
   submitTest(){}
 
   projetDetails(id: number) {
     this.router.navigate(['projet-detail', id]);
   }
 
-  updateProject(id: number) {
-    this.router.navigate(['projet-detail', id]);
-  }
-
-  public submit() : void 
+  public submit() : void
   {
     this.hideView ? this.hideView=false : this.hideView=true;
    // this.sessionService.addProjectToSession(13,3).subscribe(data=> { console.log("data",data)});
@@ -125,7 +110,7 @@ export class ProjectComponent implements OnInit {
 
     let heure = s.heureDepot;
     let regexHeure = /^([0-9]|0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/g;
-    let heureDepot = heure.match(regexHeure)[0];  
+    let heureDepot = heure.match(regexHeure)[0];
     console.log("heureDepot : ",heureDepot);
 
     let today=new Date();
@@ -186,10 +171,10 @@ export class ProjectComponent implements OnInit {
     let mDepot = parseInt(heureDepot.split(':')[1]);
     let hJour = parseInt(heureJour.split(':')[0]);
     let mJour = parseInt(heureJour.split(':')[1]);
-    
+
     if(hJour < hDepot){
       return 0;
-    } 
+    }
     else if(hJour==hDepot)
     {
       if(mJour <= mDepot){

@@ -1,28 +1,28 @@
-<nav class="navbar navbar-expand navbar-dark bg-dark fixed-top">
-    <a class="navbar-brand" href="#">Korector</a>
-    <div class="collapse navbar-collapse">
+<nav class="navbar navbar-expand-xl navbar-dark bg-danger fixed-top">
+    <a class="navbar-brand h5 " href="#">Korector</a>
+    <div class="collapse navbar-collapse" >
       <!-- Left nav items -->
-      <ul class="navbar-nav mr-auto">
+      <ul class="navbar-nav mr-auto" *ngIf="isLoggedIn">
 
         <li class="nav-item">
-          <a class="nav-link" routerLinkActive="active" routerLink="/session" *ngIf="isLoggedIn">Session</a>
+          <a class="nav-link h5" routerLinkActive="active" routerLink="/session" >Session</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" routerLinkActive="active" routerLink="/projet" *ngIf="showStudentBoard" >Projects</a>
+          <a class="nav-link h5" routerLinkActive="active" routerLink="/projet" *ngIf="showStudentBoard" >Projects</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" routerLinkActive="active" *ngIf="isLoggedIn" routerLink="/Criteria">Criteria</a>
+          <a class="nav-link h5" routerLinkActive="active"  routerLink="/Criteria">Criteria</a>
         </li>
         <!-- new String -->
         <li class="nav-item">
-          <a class="nav-link" routerLinkActive="active" *ngIf="showStudentBoard" routerLink="/Resultats">Results</a>
+          <a class="nav-link h5" routerLinkActive="active" *ngIf="showStudentBoard" routerLink="/Resultats">Results</a>
         </li>
          <li class="nav-item">
-          <a class="nav-link" *ngIf="showAdminBoard or showModeratorBoard"  routerLink="/section" >Sections</a>
+          <a class="nav-link h5" *ngIf="showAdminBoard"  routerLink="/section" >Sections</a>
         </li>
 
         <li class="nav-item">
-          <a class="nav-link" *ngIf="showAdminBoard or showModeratorBoard" routerLinkActive="active" routerLink="/stats" >Statistical</a>
+          <a class="nav-link h5" *ngIf="showAdminBoard" routerLinkActive="active" routerLink="/stats" >Statistical</a>
         </li>
       </ul>
 

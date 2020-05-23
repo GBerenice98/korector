@@ -28,10 +28,6 @@ export class SectionService {
     return this.http.post(this.url+"/createSection", section, { responseType: 'text'});
   }
 
-  updateSection(id: number, value: any): Observable<Object> {
-    return this.http.put(`${AUTH_API}/${id}`, value);
-  }
-
   deleteSection(id: number) {
     return this.http.delete(this.url+"/deleteSection/" + id, { responseType: 'text'});
   }
@@ -40,11 +36,12 @@ export class SectionService {
     return this.http.get(this.url+"/allSections");
   }
 
-  getTeachers(): Observable<any> {
-    return this.http.get("http://localhost:8080/api/user/findAllProf");
+  getTeachers(id: number): Observable<any> {
+    return  this.http.get(this.url+"/SectionTeachers/"+id);
+
   }
 
-  getStudents(): Observable<any> {
-    return this.http.get("http://localhost:8080/api/user/findAllStudent");
+  getStudents(id: number): Observable<any> {
+    return this.http.get(this.url+"/Section/"+id);
   }
 }

@@ -20,28 +20,31 @@ export class NavComponent implements OnInit {
 
     if (this.isLoggedIn) {
       const user = this.tokenStorageService.getUser();
-      this.roles = user.roles;
-      this.showAdminBoard = this.roles.includes('ROLE_ADMIN');
-      console.log("Nav bar: showAdminBoard = " + this.showAdminBoard);
-      this.showModeratorBoard = this.roles.includes('ROLE_ENSEIGNANT');
-      if(this.showModeratorBoard){
-        this.showAdminBoard =true;
-      }
-      console.log("Nav bar: roles = " + this.roles);
-      if(!this.showModeratorBoard && !this.showAdminBoard){
-        this.showStudentBoard = true;
-      }
-      console.log("Nav bar: showStudentBoard = " + this.showStudentBoard);
-      console.log("Nav bar: showModBoard = " + this.showModeratorBoard);
+      if(user != null){
+        this.roles = user.roles;
+        this.showAdminBoard = this.roles.includes('ROLE_ADMIN');
+        console.log("Nav bar: showAdminBoard = " + this.showAdminBoard);
+        this.showModeratorBoard = this.roles.includes('ROLE_ENSEIGNANT');
 
-      this.username = user.username;
-      console.log("User name  = " + this.username);
+        console.log("Nav bar: roles = " + this.roles);
+        if(!this.showModeratorBoard && !this.showAdminBoard){
+          this.showStudentBoard = true;
+        }
+        console.log("Nav bar: showStudentBoard = " + this.showStudentBoard);
+        console.log("Nav bar: showModBoard = " + this.showModeratorBoard);
+
+        this.username = user.username;
+        console.log("User name  = " + this.username);
+      }
+
 
   }
 }
 
 logout() {
   this.tokenStorageService.signOut();
+  console.log(window.applicationCache.CHECKING);
+  window.applicationCache.UNCACHED;
   window.location.reload();
 }
 

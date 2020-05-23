@@ -65,7 +65,8 @@ import { AjoutSessionCritereComponent } from './ajout-session-critere/ajout-sess
 
 
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { MesResultatsComponent } from './mes-resultats/mes-resultats.component';
+import {SectionDetailComponent} from "./section-details/section-details.component";
+//import { MesResultatsComponent } from './mes-resultats/mes-resultats.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -90,7 +91,7 @@ import { MesResultatsComponent } from './mes-resultats/mes-resultats.component';
     ClassesStatsComponent,
     ProjectComponent,
     SectionComponent,
-    //SectionDetailComponent,
+    SectionDetailComponent,
     CreateProjetComponent,
     ProjetDetailComponent,
     CreateSectionComponent,
@@ -107,7 +108,7 @@ import { MesResultatsComponent } from './mes-resultats/mes-resultats.component';
     UpdateCriteriaComponent,
     ValidationModalComponent,
     AjoutSessionCritereComponent,
-    MesResultatsComponent
+    //MesResultatsComponent
   ],
   imports: [
     BrowserModule,

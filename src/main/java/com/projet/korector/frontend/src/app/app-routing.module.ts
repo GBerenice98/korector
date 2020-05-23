@@ -34,7 +34,7 @@ import {CriteriaDetailsComponent} from "./criteria-details/criteria-details.comp
 import {UpdateCriteriaComponent} from "./update-criteria/update-criteria.component";
 import { AjoutSessionCritereComponent } from './ajout-session-critere/ajout-session-critere.component';
 import {SectionDetailComponent} from "./section-details/section-details.component";
-import { MesResultatsComponent } from './mes-resultats/mes-resultats.component';
+//import { MesResultatsComponent } from './mes-resultats/mes-resultats.component';
 
 
 const routes: Routes = [
@@ -55,7 +55,7 @@ const routes: Routes = [
   { path: 'oauth2/redirect', component: Oauth2RedirectHandlerComponent },
   { path: 'projet', component: ProjectComponent },
   { path: 'section', component: SectionComponent },
-  
+
   { path: 'projet-detail/:id', component: ProjetDetailComponent },
   { path: 'section-detail/:id', component: SectionDetailComponent },
   { path: 'createProjet', component: CreateProjetComponent },
@@ -75,7 +75,7 @@ const routes: Routes = [
   {path: 'findCriteria', component: SearchCriteriaComponent},
   { path: 'criteria-details/:id', component:  CriteriaDetailsComponent},
   { path: 'update-criteria/:id', component:  UpdateCriteriaComponent},
-  { path: 'Resultats', component:  MesResultatsComponent}
+  //{ path: 'Resultats', component:  MesResultatsComponent}
 
 ];
 

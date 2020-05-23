@@ -1,4 +1,4 @@
-<h1>Section : {{section.name}} {{section.startYear}} / {{section.endYear}}</h1>
+<h1>Section : {{section.name}} </h1>
 
 <div class="row justify-content-around">
 <div class="col-4">
@@ -9,13 +9,12 @@
       <th scope="col">N°</th>
       <th scope="col">Username</th>
       <th scope="col">Email</th>
-      <th scope="col">Details</th>
       <th scope="col">Delete</th>
     </tr>
     </thead>
-    <tbody *ngFor="let teacher of teachers">
+    <tbody *ngFor="let teacher of teachers" >
     <tr>
-      <th scope="row">{{teacher.id}}</th>
+      <td>{{teacher.id}}</td>
       <td>{{teacher.username}}</td>
       <td>{{teacher.email}}</td>
       <td><button class="btn"><i class="fa fa-trash"></i></button></td>
@@ -32,15 +31,14 @@
       <th scope="col">N°</th>
       <th scope="col">Username</th>
       <th scope="col">Email</th>
-      <th scope="col">Details</th>
       <th scope="col">Delete</th>
     </tr>
     </thead>
-    <tbody *ngFor="let student of students">
+    <tbody *ngFor="let student of students " >
     <tr>
-      <th scope="row">{{student.id}}</th>
-      <td>{{student.email}}</td>
+      <td> {{student.id}}</td>
       <td>{{student.username}}</td>
+      <td>{{student.email}}</td>
       <td><button class="btn"><i class="fa fa-trash"></i></button></td>
     </tr>
     </tbody>

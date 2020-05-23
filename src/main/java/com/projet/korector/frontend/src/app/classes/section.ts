@@ -3,10 +3,11 @@ export class Section {
   name: string;
   startYear: number;
   endYear: number;
-  constructor(name: string, start: number, end: number) {
-    this.name = name;
-    this.startYear = start;
-    this.endYear = end;
-  }
 
+  constructor(name: string, startYear: number, endYear: number) {
+    this.name = name;
+    this.startYear = startYear;
+    this.endYear = endYear;
+
+  }
 }

@@ -1,7 +1,9 @@
 package com.projet.korector.repository;
 
+import java.util.List;
 import java.util.Optional;
 
+import com.projet.korector.entity.Section;
 import com.projet.korector.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
@@ -15,6 +17,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
     Boolean existsByEmail(String email);
     User findUserByEmailIgnoreCase(String email);
     Optional<User> findByEmail(String email);
+
     
 
 }
