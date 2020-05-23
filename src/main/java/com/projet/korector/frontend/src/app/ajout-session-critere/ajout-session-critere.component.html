@@ -1,75 +1,75 @@
 <div class="container">
-	<div class="row">
-		<h1>Ajout des critères</h1>
+	<div>
+		<h1>Add Criteria</h1>
     </div> <br>
 
-    <div class="row">
-        <div class="card " style="text-align:left;">
+    <div>
+        <div class="card " style="text-align:center;">
             <div class="card-header bg-info text-white">
-                Critères
+                Criteria
             </div>
             <div class="card-body">
-                <div class="row">
+                <div>
                     <mat-form-field>
-                      <mat-label>Type du critère</mat-label>
+                      <mat-label>Criteria Type</mat-label>
                       <mat-select>
                         <mat-option (click)="changeCritereType('Statique')" value="Statique"> Statique </mat-option>
                         <mat-option (click)="changeCritereType('Dynamique')" value="Dynamique"> Dynamique </mat-option>
                       </mat-select>
                     </mat-form-field>
                 </div>
-            
-                <div class="row">
-                    <mat-form-field *ngIf="this.typeCritere=='Statique'"> 
-                        <mat-label>Selectionnez un critère</mat-label>
+
+                <div>
+                    <mat-form-field *ngIf="this.typeCritere=='Statique'">
+                        <mat-label>Select criteria</mat-label>
                         <mat-select [(value)]="nameCritere">
                             <mat-option *ngFor="let critere of statiqueCiterias" value="{{critere.name}}"> {{critere.name}} </mat-option>
                         </mat-select>
                     </mat-form-field>
 
-                    <mat-form-field *ngIf="this.typeCritere=='Dynamique'">							
-                        <mat-label>Selectionnez un critère</mat-label>
-                        <mat-select [(value)]="nameCritere"> 
+                    <mat-form-field *ngIf="this.typeCritere=='Dynamique'">
+                        <mat-label>Select criteria</mat-label>
+                        <mat-select [(value)]="nameCritere">
                             <mat-option *ngFor="let critere of dynamiqueCiterias" value="{{critere.name}}"> {{critere.name}} </mat-option>
-                        </mat-select> 
+                        </mat-select>
                     </mat-form-field>
                 </div>
 
-                <div class="row">
+                <div>
                     <mat-form-field>
-                        <mat-label>Poids du critère</mat-label>
+                        <mat-label>Criteria weight</mat-label>
                         <input matInput [(ngModel)]="poidsCritere">
-                        <mat-hint><strong>Le pourcentage du critère dans la note</strong></mat-hint>
+                        <mat-hint><strong>The percentage of the criterion in the score</strong></mat-hint>
                     </mat-form-field>
                 </div><br>
 
-                <div class="row">
+                <div>
                     <mat-form-field *ngIf="this.userRole!=='ETUDIANT'">
-                        <mat-label>Seuil du critère</mat-label>
+                        <mat-label>Criterion threshold</mat-label>
                         <input matInput placeholder="Ex. Seuil Bugs=20" [(ngModel)]="seuilCritere">
-                        <mat-hint><strong>Seuil à partir duquel on a pas à évaluer le critère</strong></mat-hint>
+                        <mat-hint><strong>Threshold from which we do not have to evaluate the criterion</strong></mat-hint>
                     </mat-form-field>
                 </div><br><br>
 
-                <div class="row">
+                <div>
                     <div class="col-md-6">
-                    <button class="btn btn-primary" (click)="addCriteria()">Ajouter</button>
+                    <button class="btn btn-primary" (click)="addCriteria()">Add</button>
                     </div>
                 </div><br>
 
-                <div class="row">
+                <div>
                     <ul style="list-style-type: none;">
                         <li *ngFor="let sessionCritere of createdCriteria" (click)="retrieveCriteriaToSelected(sessionCritere)">
                             <i class="fa fa-minus"></i> {{sessionCritere.name}} : {{sessionCritere.height}} %
                         </li>
-                    </ul>						
+                    </ul>
                 </div>
             </div>
         </div>
     </div> <br>
-    <div class="row">
+    <div>
 		<div class="col-md-6">
-		  <button class="btn btn-primary" (click)="updateSession()">Terminer</button>
+		  <button class="btn btn-primary" (click)="updateSession()">Finish !</button>
 		</div>
 	</div> <br>
 </div>

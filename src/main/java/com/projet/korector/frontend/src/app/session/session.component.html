@@ -1,10 +1,10 @@
 <div class="container-fluid">
   <div class="row">
-    <h1>Liste des sessions</h1>
+    <h1>Session List</h1>
   </div> <br>
   <div class="row">
-    <div class="col-md-6">
-      <button class="btn btn-default"><a class="nav-link" routerLinkActive="active" routerLink="/createSession">Creer Session </a></button>
+    <div class="container">
+      <button class="createButton"><a class="nav-link" routerLinkActive="active" routerLink="/createSession">Create Session </a></button>
     </div>
   </div> <br>
   <div class="row">
@@ -12,14 +12,14 @@
       <thead>
       <tr>
         <th scope="col">ID</th>
-        <th scope="col">Nom</th>        
-        <th scope="col">Supprimé</th>
+        <th scope="col">Name</th>
+        <th scope="col">Delete</th>
       </tr>
       </thead>
       <tbody *ngFor="let session of sessions; let i = index">
       <tr>
         <td><a [routerLink]="['/session-detail/', session.id]">{{i+1}}</a></td>
-        <td>{{session.name}}</td>      
+        <td>{{session.name}}</td>
         <td><button class="btn  btn-danger" (click)="deleteSession(session)"><i class="fa fa-trash"></i></button></td>
       </tr>
       </tbody>

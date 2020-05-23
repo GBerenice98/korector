@@ -1,18 +1,17 @@
-@import url('https://unpkg.com/bootstrap@3.3.7/dist/css/bootstrap.min.css');
-
-
-label{
-    float: left;
-}
-form {
-    width: 400px;
-    float: left;
-}
 h1{
-    float: left;
-    margin-bottom: 20px;
+  font-weight: bold;
+  color: #62676D;
+  padding-bottom: 25px;
 }
 
 #submitFormMessage{
     margin-top: 50px;;
+}
+.container {
+  width: 100%;
+  margin: auto;
+}
+form{
+  width: 50%;
+  MARGIN: auto;
 }
