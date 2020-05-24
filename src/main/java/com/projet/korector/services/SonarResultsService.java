@@ -22,7 +22,7 @@ import org.slf4j.LoggerFactory;
 
 @Service
 public class SonarResultsService {
-    
+
     @Autowired
     private SonarResultsRepository sonarResultsRepository;
     @Autowired

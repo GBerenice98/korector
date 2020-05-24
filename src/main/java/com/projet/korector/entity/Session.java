@@ -1,6 +1,7 @@
 package com.projet.korector.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -9,6 +10,8 @@ import java.util.Set;
 
 @Entity
 @Table(name="session")
+@JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
+
 public class Session implements Serializable {
 
     private static final long serialVersionUID = -2054386655979281969L;
@@ -19,7 +22,7 @@ public class Session implements Serializable {
     private String name;
     private String date_depot;
     private String heureDepot;
-private String typeSession;
+    private String typeSession;
     @JsonIgnore
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinTable(name="sessions_projects",
@@ -56,7 +59,7 @@ private String typeSession;
             cascade = CascadeType.PERSIST)
     private Set<SessionCritere> sessionCriteres = new HashSet<>();
 
-    @JsonIgnore
+  //  @JsonIgnore
 
     /*
     @OneToMany(mappedBy = "resultsSonarSessions",fetch = FetchType.LAZY,  cascade = CascadeType.PERSIST)
@@ -83,13 +86,19 @@ private String typeSession;
         this.heureDepot=heure;
     }
 
+    public Session(Long id,String name, String date_depot, String heureDepot, String typeSession) {
+        this.id=id;
+        this.name = name;
+        this.date_depot = date_depot;
+        this.heureDepot = heureDepot;
+        this.typeSession = typeSession;
+    }
     public Session(String name, String date_depot, String heureDepot, String typeSession) {
         this.name = name;
         this.date_depot = date_depot;
         this.heureDepot = heureDepot;
         this.typeSession = typeSession;
     }
-
     public Long getId() {
         return id;
     }
@@ -125,7 +134,6 @@ private String typeSession;
     public String getTypeSession() {
         return typeSession;
     }
-
     public void setTypeSession(String typeSession) {
         this.typeSession = typeSession;
     }

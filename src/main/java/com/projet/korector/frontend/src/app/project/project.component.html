@@ -19,7 +19,7 @@
           <mat-form-field >
             <mat-label>Choisissez un projet</mat-label>
             <mat-select [(value)]="selectedProject" >
-              <mat-option *ngFor="let project of allProjects" [value]="project">
+              <mat-option *ngFor="let project of projets | async" [value]="project">
                 {{project.name}}
               </mat-option>
             </mat-select>

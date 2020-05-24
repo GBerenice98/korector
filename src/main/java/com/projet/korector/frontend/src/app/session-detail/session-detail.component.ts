@@ -32,6 +32,8 @@ export class SessionDetailComponent implements OnInit {
   public sessionName : string ="";
   public sessionDateDepot : string="";
   public sessionHeureDepot : string="";
+  public sessionType : string="";
+
   public hideView : boolean = true;
   public typeCritere : string;
   public updateSessionId : number = 0;
@@ -84,7 +86,7 @@ export class SessionDetailComponent implements OnInit {
   public session_id: Number;
   public show:boolean = false;
   empty = false;
-
+ sessTest : Session ;
 
 
   constructor(private actRoute: ActivatedRoute, 
@@ -134,7 +136,15 @@ export class SessionDetailComponent implements OnInit {
       this.sessionName=data.name.valueOf();
       this.sessionDateDepot=data.date_depot.valueOf();  
       this.sessionHeureDepot=data.heureDepot.valueOf();    
+      this.sessionType = data.typeSession.valueOf();
+      this.sessTest =data;
+      console.log("session name" + this.sessionName)
+      console.log("session TYPE" + this.sessionType)
+
+      console.log("Data actuel " + JSON.parse(JSON.stringify(data)));
+      //alert(this.sessionType)
     });
+    console.log(this.sessTest)
   
     let listProjects : Array<Project> =[];
     this.sessionService.getSessionProjects(this.sessionId).subscribe(data => {
@@ -218,13 +228,14 @@ export class SessionDetailComponent implements OnInit {
     let dateDepotSession : string = "";
     let heureDepotSession : string = "";
 
+
     if(this.userRole!="ETUDIANT")
     {
       dateDepotSession = document.getElementsByName("dateDepotSession")[0]["value"];
       heureDepotSession = document.getElementsByName("heureDepotSession")[0]["value"];
     }
     
-    let updateSession : Session = new Session(nameSession,dateDepotSession,heureDepotSession);
+    let updateSession : Session = new Session(nameSession,dateDepotSession,heureDepotSession,this.sessionType);
     updateSession.id=this.sessionId;
 
     let sessionProjectIds: Array<number>=[];

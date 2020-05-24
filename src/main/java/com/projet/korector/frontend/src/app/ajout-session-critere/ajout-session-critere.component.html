@@ -45,9 +45,11 @@
 
                 <div>
                     <mat-form-field *ngIf="this.userRole!=='ETUDIANT'">
-                        <mat-label>Criterion threshold</mat-label>
+                        <mat-label>Criterion threshold for Static Or Note for dynamic</mat-label>
                         <input matInput placeholder="Ex. Seuil Bugs=20" [(ngModel)]="seuilCritere">
-                        <mat-hint><strong>Threshold from which we do not have to evaluate the criterion</strong></mat-hint>
+                        <mat-hint><strong>Threshold from which we do not have to evaluate the criterion for static <br>
+                                          Put the note for Dynamic
+                        </strong></mat-hint>
                     </mat-form-field>
                 </div><br><br>
 

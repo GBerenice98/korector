@@ -8,17 +8,19 @@ export class Session {
     public name:string;
     public date_depot : string;
     public heureDepot : string;
+    public typeSession : string;
     public projects : Array<number>;
     public sessionCritere : Array<number>;
     public users : Array<User>;
     public runs : Array<Run>;
 
-    constructor(name : string, date : string, heure:string)
+    constructor(name : string, date : string, heure:string,typeSession:string)
     {
         this.id=null;
         this.name=name;
         this.date_depot=date;
         this.heureDepot=heure;
+        this.typeSession = typeSession;
         this.projects=[];
         this.sessionCritere=[];
         this.users=[];

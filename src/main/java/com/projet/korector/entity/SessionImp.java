@@ -1,11 +1,13 @@
 package com.projet.korector.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.projet.korector.entity.Project;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+@JsonIgnoreProperties({"hibernateLazyInitializer","handler"})
 
 public class SessionImp {
 
@@ -18,13 +20,22 @@ public class SessionImp {
     private List<Long> sessionCritere= new ArrayList<>();
     private List<Long> runs = new ArrayList<>();
     private List<Long> users = new ArrayList<>();
-
+    private String typeSession;
+/*
 
     public SessionImp(Long id, String name, String date_depot, String heureDepot) {
         this.id = id;
         this.name = name;
         this.date_depot = date_depot;
         this.heureDepot = heureDepot;
+    } */
+
+    public SessionImp(Long id, String name, String date_depot, String heureDepot, String typeSession) {
+        this.id = id;
+        this.name = name;
+        this.date_depot = date_depot;
+        this.heureDepot = heureDepot;
+        this.typeSession = typeSession;
     }
 
     public String getName() {
@@ -67,6 +78,13 @@ public class SessionImp {
         this.projects = projects;
     }
 
+    public String getTypeSession() {
+        return typeSession;
+    }
+
+    public void setTypeSession(String typeSession) {
+        this.typeSession = typeSession;
+    }
 //    public List<Long> getCriterias() {
 //        return criterias;
 //    }

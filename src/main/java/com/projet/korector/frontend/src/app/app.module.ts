@@ -66,7 +66,7 @@ import { AjoutSessionCritereComponent } from './ajout-session-critere/ajout-sess
 
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import {SectionDetailComponent} from "./section-details/section-details.component";
-//import { MesResultatsComponent } from './mes-resultats/mes-resultats.component';
+import { MesResultatsComponent } from './mes-resultats/mes-resultats.component';
 @NgModule({
   declarations: [
     AppComponent,
