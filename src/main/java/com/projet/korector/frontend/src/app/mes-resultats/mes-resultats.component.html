@@ -1,0 +1,35 @@
+<div class="container-fluid">
+  <div class="row">
+    <table class="table table-hover">
+      <thead>
+    <tr>
+      <th>Project id </th>
+
+      <th>Session </th>
+      <th>Notes </th>
+      <th>Resultats SONAR</th>          
+    </tr>
+    </thead>
+    <tbody *ngFor="let sonarR of NotEmptySonarResults">
+    <tr>
+      <td> {{sonarR.projectId  }}</td>
+      <td> {{sonarR.sessionId}}</td>
+      <td> {{sonarR.note_finale}}</td>
+
+      <td>
+
+       Bugs : {{sonarR.bugs}}
+      Vuls : {{sonarR.vuls}}
+      Debt: {{sonarR.debt}}
+      Smells: {{sonarR.smells}}
+      Dups: {{sonarR.dups}}
+      Dups Block: {{sonarR.dups_block}}
+
+
+      </td>
+
+    </tr>          
+    </tbody>
+  </table>          
+</div>
+</div>
