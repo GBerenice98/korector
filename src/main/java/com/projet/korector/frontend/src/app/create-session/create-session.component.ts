@@ -77,7 +77,6 @@ export class CreateSessionComponent implements OnInit {
       dateDepot  = document.getElementsByName("date")[0]["value"];
       heureDepot  = document.getElementsByName("heure")[0]["value"];
       this.typeDepot = "Depot"
-      alert("depot");
       
     }
 
