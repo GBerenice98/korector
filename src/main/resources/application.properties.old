@@ -19,6 +19,7 @@ spring.jpa.show-sql=true
 # Hibernate ddl auto (create, create-drop, update): with "update" the database
 # schema will be automatically update afresh for every start of application
 spring.jpa.hibernate.ddl-auto=update
+spring.jackson.serialization.fail-on-empty-beans=false
 
 # Naming strategy
 spring.jpa.hibernate.naming.implicit-strategy=org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyHbmImpl

@@ -69,17 +69,19 @@ export class CreateSessionComponent implements OnInit {
 
   public createSession(): void
   {        
-    let dateDepot:string="null";
-    let heureDepot:string="null";
+    let dateDepot:string="";
+    let heureDepot:string="";
 
     if(this.typeSession=="depot") 
     {
       dateDepot  = document.getElementsByName("date")[0]["value"];
       heureDepot  = document.getElementsByName("heure")[0]["value"];
       this.typeDepot = "Depot"
+      alert("depot");
+      
     }
 
-    let createSession = new Session(this.nameSession, dateDepot, heureDepot);
+    let createSession = new Session(this.nameSession, dateDepot, heureDepot,this.typeDepot);
     let selectedProjectIds: Array<number>=[];
    
     this.selectedProjects.forEach(p=>{ selectedProjectIds.push(p.id)});

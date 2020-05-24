@@ -5,7 +5,7 @@
 
   <div class="row">
     <div class="col-md-6">
-      <div class="card" style="text-align:left;">
+      <div class="card " style="text-align:left;">
         <div class="card-header bg-info text-white">
           SessionId : {{sessionId}}
         </div>
@@ -66,7 +66,7 @@
 				<div class="card-body">
 					<div class="row">
 						<mat-form-field>
-						  <mat-label>Type Critère</mat-label>
+						  <mat-label>Criteria Type</mat-label>
 						  <mat-select>
                 <mat-option (click)="changeCritereType('Statique')" value="static"> Statique </mat-option>
                 <mat-option (click)="changeCritereType('Dynamique')" value="dynamic"> Dynamique </mat-option>
@@ -76,14 +76,14 @@
           
           <div class="row">
             <mat-form-field *ngIf="this.typeCritere=='Statique'"> 
-                <mat-label>Selectionnez un critère</mat-label>
+                <mat-label>Select criteria</mat-label>
                 <mat-select [(value)]="nameCritere">
                     <mat-option *ngFor="let critere of statiqueCiterias" value="{{critere.name}}"> {{critere.name}} </mat-option>
                 </mat-select>
             </mat-form-field>
 
             <mat-form-field *ngIf="this.typeCritere=='Dynamique'">							
-                <mat-label>Selectionnez un critère</mat-label>
+                <mat-label>Select criteria</mat-label>
                 <mat-select [(value)]="nameCritere"> 
                     <mat-option *ngFor="let critere of dynamiqueCiterias" value="{{critere.name}}"> {{critere.name}} </mat-option>
                 </mat-select> 
@@ -92,23 +92,24 @@
 
           <div class="row">
               <mat-form-field>
-                  <mat-label>Poids du critère</mat-label>
+                  <mat-label>Criteria weight</mat-label>
                   <input matInput [(ngModel)]="poidsCritere">
-                  <mat-hint><strong>Le pourcentage du critère dans la note</strong></mat-hint>
+                  <mat-hint><strong>The percentage of the criterion in the score</strong></mat-hint>
               </mat-form-field>
           </div><br>
 
           <div class="row">
               <mat-form-field *ngIf="this.userRole!=='ETUDIANT'">
-                  <mat-label>Seuil du critère</mat-label>
+                  <mat-label>Criterion threshold for Static Or Note for dynamic</mat-label>
                   <input matInput placeholder="Ex. Seuil Bugs=20" [(ngModel)]="seuilCritere">
-                  <mat-hint><strong>Seuil pour evaluer le critere</strong></mat-hint>
+                  <mat-hint><strong>Threshold from which we do not have to evaluate the criterion for static <br>
+                    Put the note for Dynamic</strong></mat-hint>
               </mat-form-field>
           </div><br><br>
 
 					<div class="row">
 						<div class="col-md-6">
-						<button class="btn btn-primary" (click)="addToCriteriaList()">Ajouter</button>
+						<button class="btn btn-primary" (click)="addToCriteriaList()">Add</button>
 						</div>
 					</div> <br>
 				</div>

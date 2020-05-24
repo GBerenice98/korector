@@ -9,7 +9,6 @@
       <th scope="col">N°</th>
       <th scope="col">Username</th>
       <th scope="col">Email</th>
-      <th scope="col">Delete</th>
     </tr>
     </thead>
     <tbody *ngFor="let teacher of teachers" >
@@ -17,7 +16,6 @@
       <td>{{teacher.id}}</td>
       <td>{{teacher.username}}</td>
       <td>{{teacher.email}}</td>
-      <td><button class="btn"><i class="fa fa-trash"></i></button></td>
     </tr>
     </tbody>
   </table>
@@ -31,7 +29,6 @@
       <th scope="col">N°</th>
       <th scope="col">Username</th>
       <th scope="col">Email</th>
-      <th scope="col">Delete</th>
     </tr>
     </thead>
     <tbody *ngFor="let student of students " >
@@ -39,7 +36,6 @@
       <td> {{student.id}}</td>
       <td>{{student.username}}</td>
       <td>{{student.email}}</td>
-      <td><button class="btn"><i class="fa fa-trash"></i></button></td>
     </tr>
     </tbody>
   </table>

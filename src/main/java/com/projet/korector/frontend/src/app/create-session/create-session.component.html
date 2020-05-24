@@ -21,7 +21,7 @@
 						<mat-label>Session Type</mat-label>
 						<mat-select>
 							<mat-option (click)="changeSessionType('normal')" value="Normal"> Normal </mat-option>
-							<mat-option *ngIf="this.userRole!=='ETUDIANT'" (click)="changeSessionType('depot')" value="Depot"> Deposit </mat-option>
+							<mat-option *ngIf="this.userRole!=='ETUDIANT'" (click)="changeSessionType('depot')" value="depot"> Deposit </mat-option>
 						</mat-select>
 						</mat-form-field>
 					</div>

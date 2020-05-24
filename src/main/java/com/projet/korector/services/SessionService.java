@@ -56,7 +56,7 @@ public class SessionService {
     {
         log.info("objet angular reçu pour création :"+sessionImp.toString());
 
-        Session session = new Session(sessionImp.getName(),sessionImp.getDate_depot(),sessionImp.getHeureDepot(),type);
+        Session session = new Session(sessionImp.getName(),sessionImp.getDate_depot(),sessionImp.getHeureDepot(),sessionImp.getTypeSession());
 
         Set<Project> projects = new HashSet<>();
         sessionImp.getProjects().forEach(projectId-> {
@@ -78,7 +78,7 @@ public class SessionService {
     public Session updateSession(SessionImp sessionImp)
     {
         log.info("Session à modifier : "+sessionImp);
-        Session session=new Session(sessionImp.getId(),sessionImp.getName(),sessionImp.getDate_depot(),sessionImp.getHeureDepot());
+        Session session=new Session(sessionImp.getId(),sessionImp.getName(),sessionImp.getDate_depot(),sessionImp.getHeureDepot(),sessionImp.getTypeSession());
         sessionImp.getProjects().forEach(projectId-> {
             session.getProjects().add(this.projectRepository.findById(projectId).get());
         });

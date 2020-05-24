@@ -7,7 +7,7 @@
         <configVersion>2</configVersion>
         <userRemoteConfigs>
             <hudson.plugins.git.UserRemoteConfig>
-                <url>https://github.com/Awadiagne97/POOM1TD0</url>
+                <url>https://github.com/Awadiagne97/korector</url>
                 <!-- <credentialsId>0894aed9-4937-4c08-8985-d9948f97e5eb</credentialsId> -->
             </hudson.plugins.git.UserRemoteConfig>
         </userRemoteConfigs>
@@ -28,8 +28,8 @@
     <concurrentBuild>false</concurrentBuild>
     <builders>
         <hudson.plugins.sonar.SonarRunnerBuilder plugin="sonar@2.11">
-            <properties>sonar.projectKey=POOM1TD0_Awadiagne97_35
- sonar.projectName=POOM1TD0_Awadiagne97_35
+            <properties>sonar.projectKey=korector_admin_85
+ sonar.projectName=korector_admin_85
  sonar.java.binaries =/</properties>
             <project/>
 

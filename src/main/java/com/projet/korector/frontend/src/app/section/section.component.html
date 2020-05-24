@@ -12,7 +12,6 @@
         <th scope="col">No.</th>
         <th scope="col">Nom</th>
         <th scope="col">Afficher</th>
-        <th scope="col">Supprimer</th>
       </tr>
       </thead>
       <tbody>
@@ -20,7 +19,6 @@
         <td scope="row">{{section.id}}</td>
         <td>{{section.name}}</td>
         <td><button (click)="sectionDetails(section.id)" class="btn btn-info"><i class="fa fa-eye"></i></button></td>
-        <td><button (click)="deleteSection(section.id)" class="btn btn-danger"><i class="fa fa-trash"></i></button></td>
       </tr>
       </tbody>
     </table>

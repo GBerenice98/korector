@@ -97,16 +97,11 @@ public class jenkinsController {
                /***************** D'abord on recupere les criteres dynamiques ****************/
 
                if (criteriaId.getType().equalsIgnoreCase("Dynamique")) {
-
-
-                   dynamicNote += ((criteriaId.getValue() * criteriaId.getHeight() /100) );
+                   dynamicNote += ((criteriaId.getSeuil() * criteriaId.getHeight() /100) );
 
                }
-
-
                /****************  Ensuite on recupere les criteres statiques ****************/
                if (criteriaId.getName().equalsIgnoreCase("nombre de bugs")) {
-                   System.out.println("Criteria id stats nbBugs : Seuil " + criteriaId.getSeuil() + "Poids : " + criteriaId.getHeight());
 
                    if (criteriaId.getSeuil() == 0L) {
                        seuilCritere = 20L;
@@ -117,25 +112,19 @@ public class jenkinsController {
                    noteBug = Double.parseDouble(sonarBuild.get("nombre de bugs")) >= seuilCritere ? 0 : 1 - Double.parseDouble(sonarBuild.get("nombre de bugs")) / seuilCritere;
                    statsNote +=  (20 * noteBug )* (( double) criteriaId.getHeight()/100.0) ;
 
-
-                   //RunSonar.setNote(noteBug);
                }
                if (criteriaId.getName().equalsIgnoreCase("vulnérabilités")) {
-
-
                    if (criteriaId.getSeuil() == 0L) {
                        seuilCritere = 50L;
                    } else {
                        seuilCritere = criteriaId.getSeuil();
 
                    }
-
                    Double vul =Double.parseDouble(sonarBuild.get("vulnérabilités")) >= seuilCritere ? 0 : 1 - Double.parseDouble(sonarBuild.get("vulnérabilités")) / seuilCritere ;
 
                    statsNote +=   20 * vul * (( double) criteriaId.getHeight() /100.0) ;
                              }
                if (criteriaId.getName().equalsIgnoreCase("debt")) {
-
                    if (criteriaId.getSeuil() == 0L) {
                        seuilCritere = 480L;
                    } else {

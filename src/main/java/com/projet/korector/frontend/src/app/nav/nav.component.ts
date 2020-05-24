@@ -38,10 +38,12 @@ export class NavComponent implements OnInit {
 
   }
 }
+  }
+
 
 logout() {
   this.tokenStorageService.signOut();
   window.location.reload();
-}
+} 
 
 }
