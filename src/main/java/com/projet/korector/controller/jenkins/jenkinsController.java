@@ -103,7 +103,7 @@ public class jenkinsController {
                /****************  Ensuite on recupere les criteres statiques ****************/
                if (criteriaId.getName().equalsIgnoreCase("nombre de bugs")) {
 
-                   if (criteriaId.getSeuil() == 0L) {
+                   if (criteriaId.getSeuil() == 0) {
                        seuilCritere = 20L;
                    } else {
                        seuilCritere = criteriaId.getSeuil();
@@ -114,7 +114,7 @@ public class jenkinsController {
 
                }
                if (criteriaId.getName().equalsIgnoreCase("vulnérabilités")) {
-                   if (criteriaId.getSeuil() == 0L) {
+                   if (criteriaId.getSeuil() == 0) {
                        seuilCritere = 50L;
                    } else {
                        seuilCritere = criteriaId.getSeuil();
@@ -125,7 +125,7 @@ public class jenkinsController {
                    statsNote +=   20 * vul * (( double) criteriaId.getHeight() /100.0) ;
                              }
                if (criteriaId.getName().equalsIgnoreCase("debt")) {
-                   if (criteriaId.getSeuil() == 0L) {
+                   if (criteriaId.getSeuil() == 0) {
                        seuilCritere = 480L;
                    } else {
                        seuilCritere = criteriaId.getSeuil();
@@ -137,7 +137,7 @@ public class jenkinsController {
                }
                if (criteriaId.getName().equalsIgnoreCase("code smells")) {
 
-                   if (criteriaId.getSeuil() == 0L) {
+                   if (criteriaId.getSeuil() == 0) {
                        seuilCritere = 500L;
                    } else {
                        seuilCritere = criteriaId.getSeuil();
@@ -159,7 +159,7 @@ public class jenkinsController {
                }
                if (criteriaId.getName().equalsIgnoreCase("blocs dupliqués")) {
 
-                   if (criteriaId.getSeuil() == 0L) {
+                   if (criteriaId.getSeuil() == 0) {
                        seuilCritere = 100L;
                    } else {
                        seuilCritere = criteriaId.getSeuil();

@@ -355,6 +355,9 @@ export class SessionDetailComponent implements OnInit {
 
 
   public createOneRun(p : Project ) {
+    this.runService.createRun(this.sessionId).subscribe( data => {
+      this.sessionRuns.push(data);
+    });
     this.show = true;
      
     this.buildName = p.name+"_"+ this.user.username +"_" + this.sessionId ;
