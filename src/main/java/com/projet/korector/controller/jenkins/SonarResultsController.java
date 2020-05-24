@@ -90,6 +90,7 @@ public class SonarResultsController {
         List <SonarResults> results = new ArrayList<>();
 
         List<Session> sessions = sessionController.getSessionDepotByProjectId(projectId);
+        log.info("Session of depot " + sessions);
         if (!sessions.isEmpty()) {
 
             for (Session session : sessions) {
@@ -97,11 +98,13 @@ public class SonarResultsController {
                 if (runExistsBySessionProject(sessionId, projectId)) {
                     SonarResults lastResults = sonarResultsController.getLastResultsSonar(sessionId, projectId);
                     results.add(lastResults);
+
                 }
 
             }
 
         }
+        log.info("results " + results.toString());
         return results;
     }
 

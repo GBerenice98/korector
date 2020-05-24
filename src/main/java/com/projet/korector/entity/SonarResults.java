@@ -224,6 +224,7 @@ public class SonarResults {
                 ", smells=" + smells +
                 ", dups=" + dups +
                 ", dupBlock=" + dups_block +
+                ", note finale =" + note_finale +
                 '}';
     }
 }

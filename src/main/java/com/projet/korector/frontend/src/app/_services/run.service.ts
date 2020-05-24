@@ -27,29 +27,29 @@ export class RunService {
 public sonarQubeRun(buildName : String , urlName : String, sessionId : Number, projectId : Number ) : Observable <any> {
   // s = API_URL_JENSON  + buildName + "/" +urlName
   //console.log("Url" + API_URL_JENSON  + buildName + "/" +urlName);
-  console.log (this.http.get<any>( "Run URL" + API_URL  +  "/jenkins/run/" + buildName + "/" +urlName + "/" + sessionId + "/" + projectId,  httpOptions));
+  console.log ( "Run URL" + API_URL  +  "/jenkins/run/" + buildName + "/" +urlName + "/" + sessionId + "/" + projectId);
   return this.http.get<boolean> ( API_URL  + "/jenkins/run/" + buildName + "/" +urlName + "/" + sessionId + "/" + projectId,  httpOptions);
 }
 
 public getLastBuild(sessionId : Number, projectId : Number ) {
-  console.log (this.http.get<any>( "Results URL" + API_URL  +  "/sonarResults/getResultsBySessProj/" + sessionId + "/" + projectId,  httpOptions));
+  console.log ("Results URL" + API_URL  +  "/sonarResults/getResultsBySessProj/" + sessionId + "/" + projectId,  httpOptions);
   return this.http.get<any> (API_URL  +  "/sonarResults/getResultsBySessProj/" + sessionId + "/" + projectId,  httpOptions);
 
 }
 
 public runExistsBySession(sessionId : Number ){
-  console.log (this.http.get<any>( "Results URL" + API_URL  +  "/sonarResults/runExistsSession/" + sessionId,  httpOptions));
+  console.log ("Results URL" + API_URL  +  "/sonarResults/runExistsSession/" + sessionId,  httpOptions);
   return this.http.get<boolean> (API_URL  +  "/sonarResults/runExistsSession/" + sessionId ,  httpOptions);
 
 }
 
 public runExistsBySessionProject(sessionId : Number, projectId : Number ){
-  console.log (this.http.post<any>( "Results URL" + API_URL  +  "/sonarResults/runExistsSessionProject/" + sessionId + "/" + projectId,  httpOptions));
+  console.log ( "Results URL" + API_URL  +  "/sonarResults/runExistsSessionProject/" + sessionId + "/" + projectId,  httpOptions);
   return this.http.get<boolean> (API_URL  +  "/sonarResults/runExistsSessionProject/" + sessionId + "/" + projectId,  httpOptions);
 
 }
-public getAllResultsByProjectId(projectId : Number ){
-  console.log (this.http.get<any>( "Results URL" + API_URL  +  "/sonarResults/getAllResultsProjects/"  + projectId,  httpOptions));
+public getAllResultsByProjectId(projectId : Number ) : Observable<any>{
+  console.log ("Results URL" + API_URL  +  "/sonarResults/getAllResultsProjects/"  + projectId,  httpOptions);
   return this.http.get<any> (API_URL  +  "/sonarResults/getAllResultsProjects" + "/" + projectId,  httpOptions);
 
 }
